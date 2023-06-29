@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "924109842758",
+    "project_id": "payamlater-7e7b6",
+    "storage_bucket": "payamlater-7e7b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924109842758:android:96c600f745a147ff2b5d47",
+        "android_client_info": {
+          "package_name": "com.lbb.payamlater"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "924109842758-g3ak3rvbl8rbl94be54m3gsuh039ha5v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtrWERKZoASt3K8QNQDPSDFJMbWb_HzbU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "924109842758-g3ak3rvbl8rbl94be54m3gsuh039ha5v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "924109842758-akjtt68l3sb3p3tq07d9mdprnhmfu0jj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lbb.payamlater"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

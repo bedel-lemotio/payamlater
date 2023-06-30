@@ -22,7 +22,7 @@ class SalesController extends GetxController {
 
   // List<ClientBySalesModel> clientBySales = [];
 
-  Rxn<List<Map<String, dynamic>>> clientBySales = Rxn<List<Map<String, dynamic>>>([]);
+  Rxn<List<Map<String, dynamic>>> customerSalesList = Rxn<List<Map<String, dynamic>>>([]);
   Rxn<List<PrelementModel>?> prelemtBySaleList = Rxn<List<PrelementModel>>([]);
   Rxn<AmountSalesModel?> prefinanceData = Rxn<AmountSalesModel?>(null);
 
@@ -139,9 +139,7 @@ class SalesController extends GetxController {
     var auth = storage.read('token');
     var saleId = storage.read('saleId');
     final http.Response response = await http.get(
-      Uri.parse(
-          "https://bnplapi.testing.laureal.io/bnpl/prefinancial/SumamoutbysaleID/token=$auth&saleId=$saleId"),
-    );
+      Uri.parse("https://bnplapi.testing.laureal.io/bnpl/prefinancial/SumamoutbysaleID/token=$auth&saleId=$saleId"),);
     if (response.statusCode == 200) {
       var result = jsonDecode(response.body)["message"];
       print('amount sales: $result');
@@ -160,7 +158,7 @@ class SalesController extends GetxController {
         .map((dynamic e) => e as Map<String, dynamic>)
         .toList();
     print('clientBy: $result');
-    clientBySales.value = result;
+    customerSalesList.value = result;
   }
 
   /* Lier au dropdown*/

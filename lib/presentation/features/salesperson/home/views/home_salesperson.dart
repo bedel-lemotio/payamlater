@@ -9,7 +9,6 @@ import 'package:payamlater/presentation/widgets/drawer.dart';
 
 import '../../../product/views/list_product.dart';
 import '../controller/sales_controller.dart';
-import '../model/clientBySales.dart';
 import '../model/custom_amount.dart';
 import '../model/prelemet.dart';
 import 'payment.dart';
@@ -30,7 +29,6 @@ class _SalesDashBoardState extends State<SalesDashBoard>
 
   SalesController salesController = Get.put(SalesController());
 
-  ClientBySalesModel? clientSelected;
   AmountCustomerModel? idCustom;
   PrelementModel? prelement;
 
@@ -41,9 +39,6 @@ class _SalesDashBoardState extends State<SalesDashBoard>
     salesController.getAmountBySale();
   }
 
-  // these will be the values after selection of the item
-  String? customers;
-  ClientBySalesModel? customer;
 
   //Add Customer
   int _activeStepIndex = 0;
@@ -625,7 +620,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                   /*Customers*/
                   SingleChildScrollView(
                     child:
-                    Obx(() => salesController.clientBySales.value != null && salesController.clientBySales.value!.isNotEmpty
+                    Obx(() => salesController.customerSalesList.value != null && salesController.customerSalesList.value!.isNotEmpty
                         ? Container(color: Color(0xFFF2F2F2),
                                     child: Column(
                                       children: [
@@ -667,12 +662,12 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                                 onChanged: (c) {
                                                                   salesController.customerdisplayed.value = c as String;
                                                                   print(c);
-                                                                  final item = salesController.clientBySales.value!.firstWhere((e) => e['firstname'] == c);
+                                                                  final item = salesController.customerSalesList.value!.firstWhere((e) => e['firstname'] == c);
                                                                   salesController.customer = item;
                                                                   salesController.getAmountByCustumer(item["customerid"]);
                                                                   salesController.getPrelemtByCust(item["customerid"].toString());
                                                                 },
-                                                                items: salesController.clientBySales.value?.map((client) {
+                                                                items: salesController.customerSalesList.value?.map((client) {
                                                                       return DropdownMenuItem(
                                                                         value: client['firstname'],
                                                                         child: Text('${client['firstname']} ${client['lastname']}'),);
@@ -803,7 +798,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                 SizedBox(width: 5),
                                                 ElevatedButton(
                                                   onPressed: () {
-                                                    Get.off(
+                                                    Get.to(
                                                         ListProduct());
                                                   },
                                                   child: Icon(
@@ -834,15 +829,9 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                               color:
                                               Color(0xFF034A8F),
                                               height: 50,
-                                              width: MediaQuery.of(
-                                                  context)
-                                                  .size
-                                                  .width,
-                                              alignment: Alignment
-                                                  .centerLeft,
-                                              padding:
-                                              EdgeInsets.only(
-                                                  left: 15),
+                                              width: MediaQuery.of(context).size.width,
+                                              alignment: Alignment.centerLeft,
+                                              padding: EdgeInsets.only(left: 15),
                                               child: Text(
                                                 "${salesController.customer?['firstname'] ?? "-"} ${salesController.customer?['lastname'] ?? ""}",
                                                 style: TextStyle(
@@ -857,17 +846,9 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                           ],
                                         ),
 
-                                        Obx(
-                                              () =>
-                                          salesController
-                                              .amountCust
-                                              .value !=
-                                              null
-                                              ? Container(
+                                        Obx(() => salesController.amountCust.value != null ? Container(
                                             height: 220,
-                                            // padding: EdgeInsets.only(bottom: 5),
-                                            margin: EdgeInsets
-                                                .only(
+                                            margin: EdgeInsets.only(
                                                 left:
                                                 10,
                                                 right:
@@ -896,15 +877,9 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                     // columnSpacing: 50,
                                                       headingRowHeight: 0,
                                                       columns: [
-                                                        DataColumn(
-                                                          label: Text(
-                                                            '',
-                                                          ),
-                                                        ),
+                                                        DataColumn(label: Text('',),),
                                                         DataColumn(label: Text('')),
-                                                        DataColumn(
-                                                          label: Text(''),
-                                                        )
+                                                        DataColumn(label: Text(''),)
                                                       ],
                                                       rows: [
                                                         DataRow(cells: [
@@ -1075,10 +1050,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                            salesController.custPrelement.value != null && salesController.custPrelement.value!.isNotEmpty ?
                                               Card ( elevation: 5,
                                                 color: Color(0xFFDEF3FB),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius.circular(12),
-                                                ),
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),),
                                                 child: ListView.builder(
                                                         shrinkWrap: true,
                                                         itemCount: salesController.custPrelement.value!.length,
@@ -1217,25 +1189,20 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                           );
                                                         },
                                                       ))
-                                              : Padding(
-                                            padding:
-                                            const EdgeInsets
-                                                .only(
-                                                top:
-                                                20),
-                                            child: Text(
-                                              'No Product Found',
-                                              style:
-                                              TextStyle(
-                                                color: Color(
-                                                    0xFF848484),
-                                                fontWeight:
-                                                FontWeight
-                                                    .w400,
-                                                fontSize:
-                                                16,
-                                              ),
-                                            ),
+                                              : Padding(padding: const EdgeInsets.only(top: 20),
+                                                  child: Text(
+                                                    'No Product Found',
+                                                    style:
+                                                    TextStyle(
+                                                      color: Color(
+                                                          0xFF848484),
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w400,
+                                                      fontSize:
+                                                      16,
+                                                    ),
+                                                  ),
                                           ),
                                         ),
 

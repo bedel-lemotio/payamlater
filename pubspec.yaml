@@ -61,11 +61,16 @@ dependencies:
   firebase_core_platform_interface: 4.5.1
   firebase_crashlytics: ^2.2.3
   firebase_core: ^1.19.1
-  flutter_launcher_icons: ^0.13.1
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  json_serializable:
+  build_runner: ^2.1.2
+  analyzer:
+  flutter_launcher_icons: ^0.13.1
 
 
 

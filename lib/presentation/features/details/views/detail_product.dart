@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:payamlater/presentation/features/salesperson/home/model/productPrefinancialModel.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
@@ -14,8 +15,8 @@ import '../model/frequency.dart';
 import '../model/payment.dart';
 
 class ProductDetails extends StatefulWidget {
-  // int id;
-  ProductDetails({Key? key}) : super(key: key);
+  ProductPrefinancialModel? productPrefinancialModel;
+  ProductDetails( {this.productPrefinancialModel,Key? key}) : super(key: key);
 
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
@@ -31,8 +32,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   ProductController productController = Get.put(ProductController());
   DetailController detailController = Get.put(DetailController());
   SalesController salesController = Get.put(SalesController());
-  // String? customers;
-  // bool isCustomerSelected = false;
+
 
   late List select;
   int selectPayId = 1;

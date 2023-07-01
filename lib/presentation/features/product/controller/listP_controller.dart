@@ -38,7 +38,7 @@ class ProductController extends GetxController with StateMixin {
     super.onInit();
   }
 
-  Future<List<ProductModel?>?> getProduct() async {
+  Future<List<ProductPrefinancialModel?>?> getProduct() async {
     var auth = storage.read('token');
     http.Response response = await http.get(Uri.parse(
         "https://bnplapi.testing.laureal.io/bnpl/product/$auth"));
@@ -46,7 +46,7 @@ class ProductController extends GetxController with StateMixin {
       ///data successfully
       List result = jsonDecode(response.body)["message"];
       print('product: $result');
-      return result.map((e) => ProductModel.fromJson(e)).toList();
+      return result.map((e) => ProductPrefinancialModel.fromJson(e)).toList();
     } else {
       print('error: ${response.statusCode}');
       throw Exception('Failed fetching data');

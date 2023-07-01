@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:payamlater/presentation/features/salesperson/home/model/categoryPrefinancialModel.dart';
+import 'package:payamlater/presentation/features/salesperson/home/model/productPrefinancialModel.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_grid_view.dart';
 import 'package:staggered_grid_view_flutter/widgets/staggered_tile.dart';
 
@@ -168,257 +169,216 @@ class _ListProductState extends State<ListProduct> {
                 )
                   : Center(child: CircularProgressIndicator(),)),
 
-
               SizedBox(height: 10),
 
 
-
-              Obx(() =>
-                productController.productPrefinancial.value != null && productController.productPrefinancial.value!.isNotEmpty ?
-                SizedBox(
-                  height: 500,
-                  child: StaggeredGridView.countBuilder(
-                    padding: EdgeInsets.all(0),
-                    crossAxisCount: 2,
-                    itemCount: productController.productPrefinancial.value!.length,
-                    crossAxisSpacing: 10,
-                    physics: ScrollPhysics(),
-                    shrinkWrap: true,
-                    mainAxisSpacing: 0.0,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(() => ProductDetails());
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.grey.shade100,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 5, top: 5, right: 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    height: 120,
-                                    width: 200,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Image.asset(
-                                          'assets/images/moto.png',
-                                          height: 120,
-                                          width: 200,
-                                          fit: BoxFit.fill
+              Obx(() {
+                if (productController.productPrefinancial.value != null && productController.productPrefinancial.value!.isNotEmpty ) {
+                  return SizedBox(
+                    height: 500,
+                    child: StaggeredGridView.countBuilder(
+                      padding: EdgeInsets.all(0),
+                      crossAxisCount: 2,
+                      itemCount: productController.productPrefinancial.value!.length,
+                      crossAxisSpacing: 10,
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      mainAxisSpacing: 0.0,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(() => ProductDetails(productPrefinancialModel: productController.productPrefinancial.value![index]));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.grey.shade100,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 5, top: 5, right: 5),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 120,
+                                      width: 200,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: Image.asset(
+                                            'assets/images/moto.png',
+                                            height: 120,
+                                            width: 200,
+                                            fit: BoxFit.fill
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(height: 8),
-                                  Container(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 10, bottom: 8),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                              productController.productPrefinancial.value![index].nameProd ?? 'no name',
-                                              style: TextStyle(
-                                                  color: Color(0xFF808080),
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 14
-                                              )),
-                                          SizedBox(height: 3),
-                                          Text(
-                                              currencyE.format(productController.productPrefinancial.value![index].price),
-                                              // "553 500  FCFA",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 14,
-                                              )),
-
-                                        ],
+                                    SizedBox(height: 8),
+                                    Container(
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 10, bottom: 8),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                productController.productPrefinancial.value![index].nameProd ?? 'no name',
+                                                style: TextStyle(
+                                                    color: Color(0xFF808080),
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 14
+                                                )),
+                                            SizedBox(height: 3),
+                                            Text(
+                                                currencyE.format(productController.productPrefinancial.value![index].price),
+                                                // "553 500  FCFA",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 14,
+                                                )),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-
-                    },
-                    staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-                  ),
-
-                )
-                    : Center(child: CircularProgressIndicator(),)),
-
-              FutureBuilder<List<ProductModel?>?>(
-                  future: productController.getProduct(),
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        // if (!snapshot.hasData) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
                         );
-                      // } else
-                      default:
-                        if (snapshot.hasError) {
-                          print('Error: ${snapshot.error}');
-                          return Center(
-                            child: Column(
-                              children: [
-                                Text('No Product Found'),
-                                // Text('Error: ${snapshot.error}'),
-                              ],
-                            ),
-                          );
-                        } else {
-                          List<ProductModel?> data = snapshot.data ?? [];
-                          return SizedBox(
-                            height: 500,
-                            child: StaggeredGridView.countBuilder(
-                                padding: EdgeInsets.all(0),
-                                crossAxisCount: 2,
-                                itemCount: data.length,
-                                crossAxisSpacing: 10,
-                                physics: ScrollPhysics(),
-                                shrinkWrap: true,
-                                mainAxisSpacing: 0.0,
-                                itemBuilder: (context, index) {
-                                  final datas = snapshot.data?.elementAt(index);
-                                  print(datas);
-                                  return Card(
-                                    elevation: 5,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: InkWell(
-                                      onTap: () {
-                                        // productController.selectProd = datas;
-                                        Get.to(() => ProductDetails());
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) => ProductDetails()));
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(20),
-                                          color: Colors.grey.shade100,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 5, top: 5, right: 5),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                height: 120,
-                                                width: 200,
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                ),
-                                                child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(15),
-                                                  child: Image.asset(
-                                                      'assets/images/moto.png',
-                                                      height: 120,
-                                                      width: 200,
-                                                      fit: BoxFit.fill
+
+                      },
+                      staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                    ),
+
+                  );
+                }else if (productController.productPrefinancial.value == null){
+                  return FutureBuilder<List<ProductPrefinancialModel?>?>(
+                      future: productController.getProduct(),
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.waiting:
+                          // if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                        // } else
+                          default:
+                            if (snapshot.hasError) {
+                              print('Error: ${snapshot.error}');
+                              return Center(
+                                child: Column(
+                                  children: [
+                                    Text('No Product Found'),
+                                  ],
+                                ),
+                              );
+                            } else {
+                              List<ProductPrefinancialModel?> data = snapshot.data ?? [];
+                              return SizedBox(
+                                height: 500,
+                                child: StaggeredGridView.countBuilder(
+                                  padding: EdgeInsets.all(0),
+                                  crossAxisCount: 2,
+                                  itemCount: data.length,
+                                  crossAxisSpacing: 10,
+                                  physics: ScrollPhysics(),
+                                  shrinkWrap: true,
+                                  mainAxisSpacing: 0.0,
+                                  itemBuilder: (context, index) {
+                                    final data = snapshot.data?[index];
+                                    return Card(
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Get.to(() => ProductDetails(productPrefinancialModel: data,));
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: Colors.grey.shade100,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 5, top: 5, right: 5),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  height: 120,
+                                                  width: 200,
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(15),
+                                                    child: Image.asset(
+                                                        'assets/images/moto.png',
+                                                        height: 120,
+                                                        width: 200,
+                                                        fit: BoxFit.fill
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 8),
-                                              Container(
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(left: 10, bottom: 8),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                  data[index]?.nameProd ?? 'no name',
-                                                          style: TextStyle(
-                                                            color: Color(0xFF808080),
-                                                            fontWeight: FontWeight.w400,
-                                                            fontSize: 14
-                                                          )),
-                                                      SizedBox(height: 3),
-                                                      Text(
-                                                          currencyE.format(data[index]?.price),
-                                                          // "553 500  FCFA",
-                                                          style: TextStyle(
-                                                            fontWeight: FontWeight.w700,
-                                                            fontSize: 14,
-                                                          )),
-                                                      // SizedBox(height: 3),
-                                                      // Row(
-                                                      //   mainAxisAlignment:
-                                                      //   MainAxisAlignment.spaceEvenly,
-                                                      //   children: [
-                                                      //     Text("Disponible",
-                                                      //       style: TextStyle(
-                                                      //           color: Color(0xFF034A8F),
-                                                      //           fontWeight: FontWeight.w400,
-                                                      //           fontSize: 10,
-                                                      //           fontStyle: FontStyle.italic
-                                                      //       ),
-                                                      //     ),
-                                                      //     // InkWell(
-                                                      //     //   onTap: () {
-                                                      //     //     // showDialog(
-                                                      //     //     //     context: context,
-                                                      //     //     //     builder: (context) =>
-                                                      //     //     //         HelperFunctions()
-                                                      //     //     //             .myAlertDialog(
-                                                      //     //     //           context: context,
-                                                      //     //     //         ));
-                                                      //     //   },
-                                                      //     //   child: CircleAvatar(
-                                                      //     //     radius: 16,
-                                                      //     //     backgroundColor: Color(0xFF009FE3),
-                                                      //     //     child: Icon(
-                                                      //     //       Icons
-                                                      //     //           .add,
-                                                      //     //       size: 25,
-                                                      //     //       color: Colors.white,
-                                                      //     //     ),
-                                                      //     //   ),
-                                                      //     // ),
-                                                      //   ],
-                                                      // ),
-                                                    ],
+                                                SizedBox(height: 8),
+                                                Container(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(left: 10, bottom: 8),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                            data?.nameProd ?? 'no name',
+                                                            style: TextStyle(
+                                                                color: Color(0xFF808080),
+                                                                fontWeight: FontWeight.w400,
+                                                                fontSize: 14
+                                                            )),
+                                                        SizedBox(height: 3),
+                                                        Text(
+                                                            currencyE.format(data?.price),
+                                                            // "553 500  FCFA",
+                                                            style: TextStyle(
+                                                              fontWeight: FontWeight.w700,
+                                                              fontSize: 14,
+                                                            )),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  );
+                                    );
 
-                                },
-                                staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-                              ),
+                                  },
+                                  staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                                ),
 
-                          );
+                              );
+                            }
                         }
-                    }
-                  }),
+                      });
+                }else{
+                  return Center(child: CircularProgressIndicator());
+                }
+              },)
+
+
             ],
           ),
         ),

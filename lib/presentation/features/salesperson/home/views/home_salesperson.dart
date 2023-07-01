@@ -1054,6 +1054,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                 child: ListView.builder(
                                                         shrinkWrap: true,
                                                         itemCount: salesController.custPrelement.value!.length,
+
                                                         itemBuilder: (BuildContext context, int index) {
                                                           return Card(elevation: 5,
                                                             color: Color(0xFFDEF3FB),
@@ -1156,13 +1157,12 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                                   InkWell(
                                                                     onTap: () {
                                                                       Get.to(Payment(prelementData: salesController.custPrelement.value![index],));
-
                                                                     },
                                                                     child: Icon(Icons.remove_red_eye_outlined, color: Color(0xFF034A8F)),
                                                                   ),
                                                                   ElevatedButton(
                                                                     onPressed: () {
-
+                                                                      payModal(salesController.custPrelement.value![index]);
                                                                     },
                                                                     style: ElevatedButton.styleFrom(
                                                                       primary: Color(0xFF034A8F),
@@ -1388,10 +1388,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                 ),
                                                 InkWell(
                                                   onTap: () {
-                                                    print("object to send");
-                                                    print("object to send");
-                                                    print("object to send");
-                                                    print("object to send");
+
                                                     print(salesController.prelemtBySaleList.value?[index].toJson());
 
                                                     Get.to(Payment(prelementData: salesController.prelemtBySaleList.value?[index],));

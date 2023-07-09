@@ -12,7 +12,7 @@ ProductPrefinancialModel _$ProductPrefinancialModelFromJson(
       id: json['id'] as int,
       nameProd: json['nameProd'] as String?,
       alias: json['alias'] as String?,
-      price: json['price'] as int?,
+      price: (json['price'] as num?)?.toDouble(),
       description: json['description'] as String?,
       brandId: json['brandId'] as int?,
       supplierid: json['supplierid'] as int?,

@@ -7,7 +7,6 @@ import 'presentation/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   // This is the last thing you need to add.
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

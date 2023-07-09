@@ -13,7 +13,8 @@ import '../model/calendar.dart';
 import '../model/client.dart';
 import '../model/custom_amount.dart';
 import '../model/payment.dart';
-import '../model/prelemet.dart';
+import '../model/prelementModel.dart';
+import '../model/productAccessoireModel.dart';
 import '../model/sales_amount.dart';
 
 class SalesController extends GetxController {
@@ -28,6 +29,7 @@ class SalesController extends GetxController {
 
   Map<String, dynamic>? customer;
   Rxn<List<PrelementModel>?> custPrelement = Rxn<List<PrelementModel>?>(null);
+  Rxn<PrelementModel?> currentPrelementDetails = Rxn<PrelementModel?>(null);
   Rxn<String> customerdisplayed = Rxn<String>(null);
 
 
@@ -61,7 +63,6 @@ class SalesController extends GetxController {
     getAmountBySale();
     getAllClientBySales();
     getPaymentByPref();
-    getPrelemtByElemt();
     getPrelemtBySale();
     getCalendarByPref();
     super.onInit();
@@ -196,15 +197,17 @@ class SalesController extends GetxController {
   }
 
   /* Fin */
-  Future<PrelementModel> getPrelemtByElemt() async {
+  Future<PrelementModel?> getPrelemtByElemt(String elemtId) async {
     var auth = storage.read('token');
-    var elemtId = storage.read('elemtId');
-    print('elemtId: $elemtId');
     final http.Response response = await http.get(Uri.parse("https://bnplapi.testing.laureal.io/bnpl/pre-element/pre-elementbyID/token=$auth&elementId=$elemtId"),);
     if (response.statusCode == 200) {
       List result = jsonDecode(response.body)["message"];
       print('element: $result');
-      return PrelementModel.fromJson(result[0]);
+      currentPrelementDetails.value = PrelementModel.fromJson(result[0] as Map<String,dynamic>);
+      final dataResult = result[1] as Map<String,dynamic>;
+      final dataResultList = dataResult["accessoire"] as List<dynamic>;
+      currentPrelementDetails.value?.accessoires = dataResultList.map((e) => ProductAccessoireModel.fromJson(e)).toList();
+      return currentPrelementDetails.value;
     } else {
       throw Exception('Failed to get prefinancial by element.');
     }

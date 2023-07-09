@@ -7,7 +7,7 @@ class ProductPrefinancialModel {
   int id;
   String? nameProd;
   String? alias;
-  int? price;
+  double? price;
   String? description;
   int? brandId;
   int? supplierid;

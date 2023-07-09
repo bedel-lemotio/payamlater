@@ -10,7 +10,7 @@ import 'package:payamlater/presentation/widgets/drawer.dart';
 import '../../../product/views/list_product.dart';
 import '../controller/sales_controller.dart';
 import '../model/custom_amount.dart';
-import '../model/prelemet.dart';
+import '../model/prelementModel.dart';
 import 'payment.dart';
 
 class SalesDashBoard extends StatefulWidget {
@@ -1260,7 +1260,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                             padding: EdgeInsets.only(
                                                 left: 15),
                                             child: Text(
-                                              '${salesController.prelemtBySaleList.value?[index].customerId}',
+                                              '${salesController.prelemtBySaleList.value?[index].customername}',
                                               style: TextStyle(
                                                 color:
                                                 Color(0xFFFFFFFF),
@@ -1350,7 +1350,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                     SizedBox(
                                                         height: 10),
                                                     Text(
-                                                      NumberFormat.decimalPattern().format(salesController.prelemtBySaleList.value?[index].totalRe),
+                                                      NumberFormat.decimalPattern().format(salesController.prelemtBySaleList.value?[index].totalRe ?? 0),
                                                       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
                                                     ),
                                                   ],
@@ -1522,10 +1522,10 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                       height: 40,
                       width: MediaQuery.of(context).size.width,
                       color: Color(0xFF034A8F),
-                      padding: EdgeInsets.only(left: 50, top: 10),
+                      padding: EdgeInsets.only(left: 20, top: 10),
                       margin: EdgeInsets.only(top: 10),
                       child: Text(
-                        prelvalue.productid.toString(),
+                        prelvalue.descr.toString(),
                         // 'Florence',
                         style: TextStyle(
                           color: Color(0xFFFFFFFF),
@@ -1537,7 +1537,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                     children: [
                       ListTile(
                         title: Text(
-                          '${prelvalue.productname}',
+                          '${prelvalue.customername}',
                           // 'BAJAJ M150 Motorbike',
                           style: TextStyle(
                             color: Color(0xFF034A8F),
@@ -1641,10 +1641,9 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                     title: Text('Channel'),
                   ),
                   Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Flexible(
-                            fit: FlexFit.loose,
+                            flex: 1,
                             child: RadioListTile(
                               title: Text('Cash'),
                               activeColor: Color(0xFF034A8F),
@@ -1659,9 +1658,9 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                               },
                             )),
                         Flexible(
-                            fit: FlexFit.loose,
+                            flex: 1,
                             child: RadioListTile(
-                              title: Text('MoMo'),
+                              title: Text('MoMo',maxLines: 1,overflow: TextOverflow.ellipsis,),
                               activeColor: Color(0xFF034A8F),
                               dense: true,
                               groupValue: salesController.payMethodCtrl,
@@ -1674,7 +1673,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                               },
                             )),
                         Flexible(
-                            fit: FlexFit.loose,
+                            flex: 1,
                             child: RadioListTile(
                               title: Text('OM'),
                               activeColor: Color(0xFF034A8F),
@@ -1779,39 +1778,45 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                          color: Color(0xFF034A8F),
-                          width: 196,
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                            color: Color(0xFF034A8F),
+                            width: double.infinity,
+                            child: TextButton(
+                              onPressed: () async {
+                                if (salesController.payFormKey.currentState!
+                                    .validate()) {
+                                  await salesController.createPayment();
+                                  salesController.payFormKey.currentState!.save();
+                                }
+                              },
+                              child: Text(
+                                'OK',
+                                style: TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            )),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          color: Color(0xFFFFFFFF),
+                          width: double.infinity,
                           child: TextButton(
-                            onPressed: () async {
-                              if (salesController.payFormKey.currentState!
-                                  .validate()) {
-                                await salesController.createPayment();
-                                salesController.payFormKey.currentState!.save();
-                              }
+                            onPressed: () {
+                              Navigator.of(context).pop();
                             },
                             child: Text(
-                              'OK',
+                              'Cancel',
                               style: TextStyle(
-                                color: Color(0xFFFFFFFF),
+                                color: Color(0xFFF93A3A),
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
                               ),
-                            ),
-                          )),
-                      Container(
-                        color: Color(0xFFFFFFFF),
-                        width: 196,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(
-                            'Cancel',
-                            style: TextStyle(
-                              color: Color(0xFFF93A3A),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
                             ),
                           ),
                         ),

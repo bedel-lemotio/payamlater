@@ -7,8 +7,7 @@ import 'package:payamlater/presentation/features/authentication/controller/login
 import 'package:payamlater/presentation/features/salesperson/home/model/categoryPrefinancialModel.dart';
 import 'package:payamlater/presentation/features/salesperson/home/model/productPrefinancialModel.dart';
 
-import '../model/category.dart';
-import '../model/product_model.dart';
+
 
 
 class ProductController extends GetxController with StateMixin {
@@ -99,7 +98,7 @@ class ProductController extends GetxController with StateMixin {
     http.Response response = await http.get(Uri.parse("https://bnplapi.testing.laureal.io/bnpl/product/getbyCategory/token=$auth&categoryId=$id"));
     if (response.statusCode == 200) {
       ///data successfully
-      var result = jsonDecode(response.body)["message"];
+      var result = jsonDecode(response.body)["message"] as List<dynamic>;
       print('product: $result');
       productPrefinancial.value = result.map((e) => ProductPrefinancialModel.fromJson(e)).toList();
       return productPrefinancial.value;

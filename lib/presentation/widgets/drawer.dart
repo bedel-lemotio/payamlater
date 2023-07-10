@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../features/home/controller/home_controller.dart';
+import '../features/profile/profile_screen..dart';
 import '../features/salesperson/home/views/home_salesperson.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -68,141 +70,165 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.transparent,
+      width:Get.width*0.75 ,
       child: Container(
-        width: 150,
+        height: Get.height,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              topRight: Radius.elliptical(30, 30),
-              bottomRight: Radius.elliptical(30, 30),
+              topRight: Radius.circular(40),
+              bottomRight: Radius.circular(40),
             ),
             color: Color(0xFFFFFFFF)),
-        child: ListView(
-          scrollDirection: Axis.vertical,
+        child: Column(
           children: [
-            Obx(() => Padding(
-                  padding: EdgeInsets.only(left: 30),
-                  child: UserAccountsDrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFFFF),
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.elliptical(30, 30),
-                        bottomRight: Radius.elliptical(30, 30),
-                      ),
-                    ),
-                    //current logged in userName
-                    accountName: Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
-                      child: Text(
-                        // 'Hello! A',
-                        'Hello! ${homeCtrl.username.value?['firstname'] ?? "-"} ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                          color: Color(0xFF1B1D3B),
+            Expanded(
+              child: Container(
+                child: Column(
+                  children: [
+                    SizedBox(height:40),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child:  Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        child: IconButton(
+                          color:Color(0xff1B1D3B) ,
+                          onPressed: () { Get.back(); },
+                          icon: Icon(CupertinoIcons.clear_circled_solid,size: 30,),
                         ),
                       ),
                     ),
-                    accountEmail: Text(''),
-                    currentAccountPictureSize: Size.square(150),
-                    currentAccountPicture: Container(
+                    Container(
                       decoration: BoxDecoration(shape: BoxShape.circle),
-                      padding: EdgeInsets.only(left: 20, top: 30, bottom: 10),
-                      height: 100,
-                      width: 30,
-                      child: CircleAvatar(
-                        child: Image.asset('assets/images/user.png',
-                            fit: BoxFit.fitHeight, alignment: Alignment.center),
+                      height: 90,
+                      width: 90,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.asset('assets/images/moto1.jpeg',
+                            fit: BoxFit.cover, alignment: Alignment.center),
                       ),
                     ),
-                  ),
-                )),
-
-            // for (int i = 0; i < 5; i++)
-            ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Color(0xFFF2F2F2),
-                child: Icon(
-                  Icons.home,
-                  color: Colors.black,
-                  size: 25,
-                ),
-              ),
-              onTap: () {
-                Get.off(SalesDashBoard());
-              },
-              title: Text(
-                "Dashboard",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
-                  color: Color(0xFF222222),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Color(0xFFF2F2F2),
-                child: Icon(
-                  Icons.label,
-                  color: Colors.black,
-                  size: 25,
-                ),
-              ),
-              onTap: () => Get.off(SalesDashBoard()),
-              title: Text(
-                "Customers",
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
-                  color: Color(0xFF222222),
-                ),
-              ),
-            ),
-
-            SizedBox(
-              height: 280,
-            ),
-            SizedBox(
-              width: 30,
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFFFFFFFF),
-                  minimumSize: Size(40, 70),
-                ),
-                onPressed: () {
-                  homeCtrl.logout();
-                  onwillPop(context);
-                },
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.logout,
-                      color: Colors.black,
-                      size: 30,
-                    ),
-                    SizedBox(width: 5),
+                    SizedBox(height: 10),
                     Text(
-                      "LogOut",
+                      // 'Hello! A',
+                      'Hello! ${homeCtrl.username.value?['firstname'] ?? "-"} ',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                        color: Color(0xFFF93A3A),
+                        fontSize: 18,
+                        color: Color(0xFF1B1D3B),
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                        Get.toNamed('/profile');
+                        },
+                      child: Text(
+                        'Edit Profile',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15,
+                          color: Color(0xFF034A8F),
+                          decoration: TextDecoration.underline,
+                          decorationThickness: 1
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Color(0xFFF2F2F2),
+                        child: Icon(
+                          CupertinoIcons.home,
+                          color: Color(0xff1B1D3B),
+                          size: 25,
+                        ),
+                      ),
+                      onTap: () {
+                        Get.off(SalesDashBoard());
+                      },
+                      title: Text(
+                        "Dashboard",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 17,
+                          color: Color(0xff1B1D3B)
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Color(0xFFF2F2F2),
+                        child: Icon(
+                          Icons.label,
+                          color: Color(0xff1B1D3B),
+                          size: 25,
+                        ),
+                      ),
+                      onTap: () => Get.off(SalesDashBoard()),
+                      title: Text(
+                        "Customers",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 17,
+                          color: Color(0xff1B1D3B)
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 100),
-              child: Text(
-                'App Version - V 1.0',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 11,
-                  color: Color(0xFF222222),
-                ),
+            Container(
+              width:Get.width*0.75 ,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Divider(color: Colors.grey.withOpacity(0.5),height: 2,indent: 1,endIndent: 1,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: TextButton(
+                      onPressed: () {
+                        homeCtrl.logout();
+                        onwillPop(context);
+                      },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              color: Colors.black,
+                              size: 30,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              "LogOut",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                                color: Color(0xFFF93A3A),
+                              ),
+                            ),
+                          ],
+                        ),
+                    ),
+                  ),
+
+                  Container(
+                    padding: const EdgeInsets.only(left: 20, top: 60),
+                    margin: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      'App Version - V 1.0',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 11,
+                        color: Color(0xFF222222),
+                      ),
+                    ),
+                  )
+                ],
               ),
             )
           ],

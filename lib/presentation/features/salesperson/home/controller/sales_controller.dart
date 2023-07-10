@@ -209,7 +209,8 @@ class SalesController extends GetxController {
       currentPrelementDetails.value?.accessoires = dataResultList.map((e) => ProductAccessoireModel.fromJson(e)).toList();
       return currentPrelementDetails.value;
     } else {
-      throw Exception('Failed to get prefinancial by element.');
+      printError(info:'Error',logFunction:throw Exception('Failed to get prefinancial by element.') );
+
     }
   }
 

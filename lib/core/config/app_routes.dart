@@ -1,11 +1,14 @@
 import 'package:get/get.dart';
 import 'package:payamlater/presentation/features/salesperson/home/views/home_salesperson.dart';
 
+import '../../presentation/features/add_customer/add_customer_screen..dart';
 import '../../presentation/features/authentication/views/auth.dart';
+import '../../presentation/features/bindings/add_customer_binding.dart';
 import '../../presentation/features/bindings/auth_binding.dart';
 import '../../presentation/features/bindings/home_binding.dart';
 import '../../presentation/features/bindings/sales_dashboard_binding.dart';
 import '../../presentation/features/home/views/home.dart';
+import '../../presentation/features/profile/profile_screen..dart';
 import '../../presentation/features/splashscreen/view/splashscreen.dart';
 import '../../presentation/features/welcome/view/welcome.dart';
 
@@ -41,6 +44,18 @@ final List<GetPage<dynamic>> routes = [
       name: '/salesdashboard',
       page: () => SalesDashBoard(),
       binding: SalesDashboardBinding(),
+  ),
+
+  GetPage(
+      name: '/add-customer',
+      page: () => AddCustomerScreen(),
+      binding: AddCustomerBinding(),
+  ),
+
+  GetPage(
+      name: '/profile',
+      page: () => ProfileScreen(),
+      binding: AddCustomerBinding(),
   ),
 
 ];

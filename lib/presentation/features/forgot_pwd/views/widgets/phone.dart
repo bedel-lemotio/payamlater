@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:payamlater/presentation/features/authentication/views/auth.dart';
 import 'package:payamlater/presentation/widgets/snackbar.dart';
+
+import '../../../../widgets/text_field_widget.dart';
 
 class ForgotPhone extends StatefulWidget {
   const ForgotPhone({Key? key}) : super(key: key);
@@ -39,22 +42,22 @@ class _ForgotPhoneState extends State<ForgotPhone> {
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 10.0, bottom: 10.0, left: 25.0, right: 25.0),
-                      child: IntlPhoneField(
-                        decoration: const InputDecoration(
-                          hintText: 'Phone Number',
-                          // suffixStyle: ,
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(width: 2, color: Color(0xFF034A8F)),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(width: 2, color: Color(0xFF034A8F)),
-                          ),
-                        ),
-                        initialCountryCode: 'CM',
-                        onChanged: (phone) {
-                          print(phone.completeNumber);
+                      child: TextFieldPhoneWidget(
+                        //controller: controller.phoneController,
+                        labelText: "Phone number",
+                        hintText: "Phone number",
+                        messageErro: null,
+                        onInputChanged: (PhoneNumber number) {
+                          // controller.phoneChanged(number);
                         },
-                      )
+                        onInputValidated:(value){
+                          //controller.validationsPhone(value);
+                        },
+                        onSaved: (PhoneNumber number) {
+                          //controller.phoneSaved(number);
+                        },
+                      ),
+
                   ),
                 ],
               ),

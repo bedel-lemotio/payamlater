@@ -29,12 +29,13 @@ class _SplashScreenState extends State<SplashScreen>
     bool _seen = (prefs.getBool('seen') ?? false);
 
     if (_seen) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Auth()));
+      Get.off(() => Auth());
+
+      //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Auth()));
     } else {
       await prefs.setBool('seen', true);
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Welcome()));
+      Get.off(() => Welcome());
+     //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Welcome()));
     }
   }
 

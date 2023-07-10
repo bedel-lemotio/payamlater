@@ -2,9 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:payamlater/core/service/api_url.dart';
 
+import '../../../../widgets/text_field_widget.dart';
 import '../../controller/register_controller.dart';
 import '../auth.dart';
 
@@ -126,21 +127,19 @@ class _SignUpState extends State<SignUp> {
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 5.0, left: 25.0, right: 25.0),
-                              child: IntlPhoneField(
+                              child: TextFieldPhoneWidget(
                                 controller: registerController.phoneController,
-                                decoration: const InputDecoration(
-                                  hintText: 'Phone Number',
-                                  // suffixStyle: ,
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(width: 2, color: Color(0xFF034A8F)),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(width: 2, color: Color(0xFF034A8F)),
-                                  ),
-                                ),
-                                initialCountryCode: 'CM',
-                                onChanged: (phone) {
-                                  print(phone.completeNumber);
+                                labelText: "Phone number",
+                                hintText: "Phone number",
+                                messageErro: null,
+                                onInputChanged: (PhoneNumber number) {
+                                  // controller.phoneChanged(number);
+                                },
+                                onInputValidated:(value){
+                                  //controller.validationsPhone(value);
+                                },
+                                onSaved: (PhoneNumber number) {
+                                  //controller.phoneSaved(number);
                                 },
                               )
                             ),

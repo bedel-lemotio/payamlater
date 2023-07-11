@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:im_stepper/stepper.dart';
 
 import '../../widgets/stepper/linear_step_indicator.dart';
+import '../../widgets/widget_error.dart';
 import 'components/add_customer_step_four.dart';
 import 'components/add_customer_step_one.dart';
 import 'components/add_customer_step_three.dart';
@@ -64,14 +66,17 @@ class AddCustomerScreen extends GetView<AddCustomerController> {
                   children: [
                     Obx(() {
                       if(controller.activeStep.value != 3){
-                        return LinearStepIndicator(
-                          steps: 3,
-                          //steps: controller.activeStep.value,
-                          controller: controller.pageController,
-                          labels: List<String>.generate(3, (index) => "Step ${index + 1}"),
-                          complete: () {
-                            return Future.value(true);
-                          },
+                        return NumberStepper(
+                          activeStep: controller.activeStep.value,
+                            enableStepTapping: false,
+                            scrollingDisabled: false,
+                            enableNextPreviousButtons: false,
+                            steppingEnabled: false,
+                            lineColor: Colors.grey,
+                            activeStepColor: Color(0xff6F8C2E),
+                            stepColor: Colors.transparent,
+                            activeStepBorderColor: Colors.transparent,
+                            numbers:[1, 2, 3]
                         );
                       }else{
                         return Padding(
@@ -173,16 +178,37 @@ class AddCustomerScreen extends GetView<AddCustomerController> {
                         elevation: 0,
                       ),
                       onPressed: () {
+                        switch(controller.activeStep.value) {
+                          case 0: {
+                            if (controller.addCustomerStepOneFormKey.currentState!.validate()) {
+                              controller.addCustomerStepOneFormKey.currentState!.save();
+                              controller.pageController.nextPage(duration: const Duration(milliseconds: 200), curve: Curves.bounceOut);
+                            }else{
+                              showErrorMessage(error: "Incorrect field!!!");
+                            }
+                          }
+                          break;
+                          case 1: {
+                            if (controller.addCustomerStepTwoFormKey.currentState!.validate()) {
+                              controller.addCustomerStepTwoFormKey.currentState!.save();
+                              controller.pageController.nextPage(duration: const Duration(milliseconds: 200), curve: Curves.bounceOut);
+                            }else{
+                              showErrorMessage(error: "Incorrect field!!!");
+                            }
+                          }
+                          break;
+                          case 2: {
+                            if (controller.addCustomerStepThreeFormKey.currentState!.validate()) {
+                              controller.addCustomerStepThreeFormKey.currentState!.save();
+                              controller.pageController.nextPage(duration: const Duration(milliseconds: 200), curve: Curves.bounceOut);
+                            }else{
+                              showErrorMessage(error: "Incorrect field!!!");
+                            }
+                          }
+                          break;
+                        }
                         //DeviceUtils.hideKeyboard(context);
-                        controller.pageController.nextPage(duration: const Duration(milliseconds: 200), curve: Curves.bounceOut);
 
-
-                        /*if (controller.addCustomerStepOneFormKey.currentState!.validate()) {
-                      controller.addCustomerStepOneFormKey.currentState!.save();
-
-                    }else{
-                      //showErrorMessage(error: "Incorrect field!!!");
-                    }*/
                       },
                     );
                   }else{

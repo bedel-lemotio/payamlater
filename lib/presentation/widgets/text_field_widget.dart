@@ -197,10 +197,8 @@ class TextFieldWidget extends StatelessWidget {
   }
 }
 
-
-
-class TextFieldCodeWidget extends StatelessWidget {
-  TextFieldCodeWidget({
+class TextFieldSimpleWidget extends StatelessWidget {
+  TextFieldSimpleWidget({
     Key? key,
     required this.hintText,
     this.controller,
@@ -223,41 +221,51 @@ class TextFieldCodeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       key: key,
-      keyboardType: textInputType,
-      onChanged: onChanged,
       controller: controller,
-      enabled:enabled,
-      maxLines:1,
-      validator:validator,
+      textAlign: TextAlign.start,
+      textAlignVertical: TextAlignVertical.top,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      textAlign: TextAlign.center,
       style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
-          color: const Color(0xFF00C8D1)
+          fontSize: 18,
+          fontWeight: FontWeight.w400,
+          color: Colors.black
       ),
       decoration: InputDecoration(
-        errorText: messageErro,
-        hintText: hintText,
-        hintStyle: const TextStyle(
-            color: Color(0xff8D9091),
-            fontSize: 14
-        ),
-        enabledBorder: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.red),
-        ),
-        border: InputBorder.none,
-        filled: true,
-        contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        fillColor: const Color(0xffFBFBFB),
-
+          hintText: hintText,
+          hintStyle: const TextStyle(
+            fontSize: 15,
+            color: Colors.grey,
+            fontWeight: FontWeight.w400,
+          ),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Color(0xffE5E7EB) ),
+              gapPadding: 10
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color:  Color(0xff034A8F) ),
+              gapPadding: 10),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Colors.red),
+              gapPadding: 10
+          ),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: const BorderSide(color: Color(0xff034A8F)),
+              gapPadding: 10
+          ),
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          filled: true,
+          contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          fillColor: Color(0xffF9FAFB)
       ),
     );
   }
 }
+
+
 
 class TextFieldPasswordWidget extends StatefulWidget {
   TextFieldPasswordWidget({

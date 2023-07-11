@@ -104,7 +104,7 @@ class MyDrawer extends StatelessWidget {
                       width: 90,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(50),
-                        child: Image.asset('assets/images/moto1.jpeg',
+                        child: Image.asset('assets/images/portrait_placeholder.png',
                             fit: BoxFit.cover, alignment: Alignment.center),
                       ),
                     ),
@@ -136,46 +136,123 @@ class MyDrawer extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
-                    ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Color(0xFFF2F2F2),
-                        child: Icon(
-                          CupertinoIcons.home,
-                          color: Color(0xff1B1D3B),
-                          size: 25,
-                        ),
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Color(0xFFF2F2F2),
+                              child: Icon(
+                                Icons.home,
+                                color: Color(0xff1B1D3B),
+                                size: 25,
+                              ),
+                            ),
+                            onTap: () {
+                              Get.off(SalesDashBoard());
+                            },
+                            title: Text(
+                              "Dashboard",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                  color: Color(0xff1B1D3B)
+                              ),
+                            ),
+                          ),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Color(0xFFF2F2F2),
+                              child: Icon(
+                                Icons.label,
+                                color: Color(0xff1B1D3B),
+                                size: 25,
+                              ),
+                            ),
+                            title: Text(
+                              "Catalog",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                  color: Color(0xff1B1D3B)
+                              ),
+                            ),
+                          ),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Color(0xFFF2F2F2),
+                              child: Icon(
+                                Icons.account_balance_wallet,
+                                color: Color(0xff1B1D3B),
+                                size: 25,
+                              ),
+                            ),
+                            title: Text(
+                              "Customers",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                  color: Color(0xff1B1D3B)
+                              ),
+                            ),
+                          ),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Color(0xFFF2F2F2),
+                              child: Icon(
+                                Icons.wallet,
+                                color: Color(0xff1B1D3B),
+                                size: 25,
+                              ),
+                            ),
+                            title: Text(
+                              "Products",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                  color: Color(0xff1B1D3B)
+                              ),
+                            ),
+                          ),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Color(0xFFF2F2F2),
+                              child: Icon(
+                                Icons.settings,
+                                color: Color(0xff1B1D3B),
+                                size: 25,
+                              ),
+                            ),
+                            title: Text(
+                              "Settings",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                  color: Color(0xff1B1D3B)
+                              ),
+                            ),
+                          ),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Color(0xFFF2F2F2),
+                              child: Icon(
+                                Icons.notifications,
+                                color: Color(0xff1B1D3B),
+                                size: 25,
+                              ),
+                            ),
+                            title: Text(
+                              "Notifications",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 17,
+                                  color: Color(0xff1B1D3B)
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      onTap: () {
-                        Get.off(SalesDashBoard());
-                      },
-                      title: Text(
-                        "Dashboard",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          color: Color(0xff1B1D3B)
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Color(0xFFF2F2F2),
-                        child: Icon(
-                          Icons.label,
-                          color: Color(0xff1B1D3B),
-                          size: 25,
-                        ),
-                      ),
-                      onTap: () => Get.off(SalesDashBoard()),
-                      title: Text(
-                        "Customers",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          color: Color(0xff1B1D3B)
-                        ),
-                      ),
-                    ),
+                    )
                   ],
                 ),
               ),

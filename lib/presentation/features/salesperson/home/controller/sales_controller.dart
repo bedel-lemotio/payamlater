@@ -21,8 +21,6 @@ class SalesController extends GetxController {
   AmountSalesModel? amountSalesModel;
   Rxn<AmountCustomerModel> amountCust = Rxn<AmountCustomerModel>(null);
 
-  // List<ClientBySalesModel> clientBySales = [];
-
   Rxn<List<Map<String, dynamic>>> customerSalesList = Rxn<List<Map<String, dynamic>>>([]);
   Rxn<List<PrelementModel>?> prelemtBySaleList = Rxn<List<PrelementModel>>([]);
   Rxn<AmountSalesModel?> prefinanceData = Rxn<AmountSalesModel?>(null);
@@ -32,10 +30,8 @@ class SalesController extends GetxController {
   Rxn<PrelementModel?> currentPrelementDetails = Rxn<PrelementModel?>(null);
   Rxn<String> customerdisplayed = Rxn<String>(null);
 
-
   final GlobalKey<FormState> payFormKey = GlobalKey<FormState>(debugLabel: '__payFormKey__');
 
-  // final pDateCtrl = TextEditingController();
   final pVerseCtrl = TextEditingController();
   final pStatusCtrl = TextEditingController();
   String? payMethodCtrl = 'Cash';

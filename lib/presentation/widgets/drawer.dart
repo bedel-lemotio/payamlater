@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../features/home/controller/home_controller.dart';
-import '../features/profile/profile_screen..dart';
+import '../features/profile/views/profile_screen..dart';
 import '../features/salesperson/home/views/home_salesperson.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -111,7 +111,7 @@ class MyDrawer extends StatelessWidget {
                     SizedBox(height: 10),
                     Text(
                       // 'Hello! A',
-                      'Hello! ${homeCtrl.username.value?['firstname'] ?? "-"} ',
+                      'Hello! ${homeCtrl.userData.value?.firstname ?? "-"} ',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 18,

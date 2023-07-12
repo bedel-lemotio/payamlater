@@ -25,8 +25,7 @@ class AuthApiService extends GetConnect {
           'pass2': data['confirmPassword']
         };
       }
-      final response = await http.post(
-          url, body: jsonEncode(body), headers: headers);
+      final response = await http.post(url, body: jsonEncode(body), headers: headers);
       return jsonDecode(response.body);
       // return post(url, body, headers: headers);
     } catch (e) {

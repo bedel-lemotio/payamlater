@@ -132,76 +132,76 @@ class AddCustomerScreen extends GetView<AddCustomerController> {
             centerTitle: true,
         ),
           body: SingleChildScrollView(
-          child: SizedBox(
-            height: Get.height,
-            width: Get.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Obx(() {
-                        if(controller.activeStep.value != 3){
-                          return LinearStepIndicator(
-                            steps: 3,
-                            //steps: controller.activeStep.value,
-                            controller: controller.pageController,
-                            labels: List<String>.generate(3, (index) => "Step ${index + 1}"),
-                            complete: () {
-                              return Future.value(true);
-                            },
-                          );
-                        }else{
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              left: 20,top: 15,bottom: 15
-                            ),
-                            child: Text(
-                              "OVERVIEW",
-                              style: TextStyle(
-                                color: Color(0xFF034A8F),
-                                fontWeight: FontWeight.w700,
-                                fontSize: 20,
+            child: SizedBox(
+              height: Get.height,
+              width: Get.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Obx(() {
+                          if(controller.activeStep.value != 3){
+                            return LinearStepIndicator(
+                              steps: 3,
+                              //steps: controller.activeStep.value,
+                              controller: controller.pageController,
+                              labels: List<String>.generate(3, (index) => "Step ${index + 1}"),
+                              complete: () {
+                                return Future.value(true);
+                              },
+                            );
+                          }else{
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                left: 20,top: 15,bottom: 15
                               ),
-                            ),
-                          );
-                        }
-                      }),
+                              child: Text(
+                                "OVERVIEW",
+                                style: TextStyle(
+                                  color: Color(0xFF034A8F),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            );
+                          }
+                        }),
 
-                      Divider(color: Colors.grey.withOpacity(0.5),height: 1,),
-                    ],
+                        Divider(color: Colors.grey.withOpacity(0.5),height: 1,),
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child:  Stack(
-                    alignment: Alignment.topCenter,
-                    children: [
-                      PageView(
-                        controller: controller.pageController,
-                        physics: const NeverScrollableScrollPhysics(),
-                        onPageChanged: (value) {
-                          controller.activeStep.value = value;
-                          printInfo(info: value.toString());
-                        },
-                        children: [
-                          AddCustomerStepOne(),
-                          AddCustomerStepTwo(),
-                          AddCustomerStepThree(),
-                          AddCustomerStepFour(),
-                        ],
-                      ),
-                    ],
+                  Expanded(
+                    child:  Stack(
+                      alignment: Alignment.topCenter,
+                      children: [
+                        PageView(
+                          controller: controller.pageController,
+                          physics: const NeverScrollableScrollPhysics(),
+                          onPageChanged: (value) {
+                            controller.activeStep.value = value;
+                            printInfo(info: value.toString());
+                          },
+                          children: [
+                            AddCustomerStepOne(),
+                            AddCustomerStepTwo(),
+                            AddCustomerStepThree(),
+                            AddCustomerStepFour(),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
           bottomNavigationBar: AnimatedOpacity(
             opacity: MediaQuery.of(context).viewInsets.bottom != 0 ? 0.0 : 1.0,
             duration: const Duration(milliseconds: 1000),
@@ -213,7 +213,6 @@ class AddCustomerScreen extends GetView<AddCustomerController> {
                 children: [
                   Obx(() {
                     if(controller.activeStep.value > 0){
-
                       return TextButton(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10,right: 10),

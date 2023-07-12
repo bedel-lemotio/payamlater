@@ -9,7 +9,7 @@ import '../../../../core/service/api_url.dart';
 import '../../authentication/views/auth.dart';
 
 
-class HomeController extends GetxController{
+class ProfileController extends GetxController{
 
   final storage = GetStorage();
   Rxn<UserModel?> userData = Rxn<UserModel?>(null);
@@ -17,11 +17,11 @@ class HomeController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    getUserName();
+
 
   }
 
-  Future getUserName() async {
+  Future deleteAccount() async {
     var auth = storage.read('token');
     var saleId = storage.read('saleId');
     final http.Response response = await http.get(
@@ -37,22 +37,5 @@ class HomeController extends GetxController{
     }
   }
 
-  Future logout() async{
-    var auth = storage.read('token');
-    var headers = {'Content-Type': 'application/json; charset=UTF-8'};
-    var url = Uri.parse(ApiUrl.testingURL + ApiUrl.authEndPoint.login);
-    Map body = {
-      "userid": auth,
-    };
-    http.Response response =
-    await http.post(url, body: jsonEncode(body), headers: headers);
-    if (response.statusCode == 201) {
-      final result = jsonDecode(response.body);
-      print(result);
-      Get.defaultDialog(
-          title: "Logout", content: const Text("Logout successfully."));
-      //go to login
-      Get.offAll(()=> Auth());
-    }
-  }
+
 }

@@ -68,6 +68,7 @@ dev_dependencies:
     sdk: flutter
 
   json_serializable:
+  json_annotation:
   build_runner: ^2.1.2
   analyzer:
   flutter_launcher_icons: ^0.13.1

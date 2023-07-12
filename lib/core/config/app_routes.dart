@@ -8,7 +8,7 @@ import '../../presentation/features/bindings/auth_binding.dart';
 import '../../presentation/features/bindings/home_binding.dart';
 import '../../presentation/features/bindings/sales_dashboard_binding.dart';
 import '../../presentation/features/home/views/home.dart';
-import '../../presentation/features/profile/profile_screen..dart';
+import '../../presentation/features/profile/views/profile_screen..dart';
 import '../../presentation/features/splashscreen/view/splashscreen.dart';
 import '../../presentation/features/welcome/view/welcome.dart';
 

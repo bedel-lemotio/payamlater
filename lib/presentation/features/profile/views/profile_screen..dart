@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
-import '../../widgets/text_field_widget.dart';
-import '../add_customer/controller/add_customer_controller.dart';
+import '../../../widgets/text_field_widget.dart';
+import '../../add_customer/controller/add_customer_controller.dart';
+import '../../home/controller/home_controller.dart';
+import 'delete_account/policy_to_off_account_screen.dart';
 
 class ProfileScreen extends GetView<AddCustomerController> {
+  HomeController homeCtrl = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +95,7 @@ class ProfileScreen extends GetView<AddCustomerController> {
               ),
               Text(
                 // 'Hello! A',
-                'Michel Happi ',
+                '${homeCtrl.userData.value?.firstname} ${homeCtrl.userData.value?.lastname} ',
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 18,
@@ -125,7 +128,7 @@ class ProfileScreen extends GetView<AddCustomerController> {
                               Expanded(
                                 child: TextFieldSimpleWidget(
                                   key: key,
-                                  controller: TextEditingController(text: "HAPPI"),
+                                  controller: TextEditingController(text: homeCtrl.userData.value?.firstname),
                                   hintText: '',
                                   messageErro: '',
                                 ),
@@ -175,7 +178,7 @@ class ProfileScreen extends GetView<AddCustomerController> {
                               Expanded(
                                 child: TextFieldSimpleWidget(
                                   key: key,
-                                  controller: TextEditingController(text: "MICHEL"),
+                                  controller: TextEditingController(text: homeCtrl.userData.value?.lastname),
                                   hintText: '',
                                   messageErro: '',
                                 ),
@@ -225,7 +228,7 @@ class ProfileScreen extends GetView<AddCustomerController> {
                               Expanded(
                                 child: TextFieldSimpleWidget(
                                   key: key,
-                                  controller: TextEditingController(text: "michelhappi@gmail.com"),
+                                  controller: TextEditingController(text: homeCtrl.userData.value?.email),
                                   hintText: '',
                                   messageErro: '',
                                 ),
@@ -273,8 +276,8 @@ class ProfileScreen extends GetView<AddCustomerController> {
                                   textAlignVertical: TextAlignVertical.center,
                                   autoValidateMode: AutovalidateMode.onUserInteraction,
                                   selectorTextStyle: const TextStyle(color: Colors.black),
-                                  initialValue: PhoneNumber(dialCode: "+237",isoCode:"CMR",phoneNumber: "676550023"),
-                                  textFieldController: TextEditingController(text: "676550023"),
+                                  initialValue: PhoneNumber(dialCode: "+237",isoCode:"CMR",phoneNumber: homeCtrl.userData.value?.phone),
+                                  textFieldController: TextEditingController(text: homeCtrl.userData.value?.phone),
                                   countries: const ["CM", "NE", "FR"],
                                   formatInput: true,
                                   keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
@@ -449,6 +452,7 @@ class ProfileScreen extends GetView<AddCustomerController> {
                 constraints: BoxConstraints.expand(width: Get.width*0.5,height: 70),
                 padding: const EdgeInsets.only(left: 30),
                 onPressed: () {
+                  Get.to(PolicyToOffAccountScreen());
                 },
                 child: Row(
                   children: [

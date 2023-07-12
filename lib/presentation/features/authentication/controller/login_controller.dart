@@ -63,8 +63,7 @@ class LoginController extends GetxController {
           LoadingOverlay.hide();
           final result = jsonDecode(response.body);
           print('data: $result');
-          Get.defaultDialog(
-              title: "Login", content: const Text("Login successfully."));
+          Get.defaultDialog(title: "Login", content: const Text("Login successfully."));
           var token = result["message"][0]["token"];
           storage.write('token', token);
           print('auth: $token');
@@ -75,17 +74,14 @@ class LoginController extends GetxController {
           if (result["message"][0]["userType"] == "client") {
             usernameController.clear();
             passwordController.clear();
-            Get.defaultDialog(
-                title: "Login", content: const Text("Login successfully."));
-
+            Get.defaultDialog(title: "Login", content: const Text("Login successfully."));
             //go to home
             Get.offAll(SalesDashBoard());
           } else if (result["message"][0]["userType"] == "salesperson") {
             usernameController.clear();
             passwordController.clear();
             LoadingOverlay.hide();
-            Get.defaultDialog(
-                title: "Login", content: const Text("Login successfully."));
+            Get.defaultDialog(title: "Login", content: const Text("Login successfully."));
             //go to home
             Get.offAll(SalesDashBoard());
           }

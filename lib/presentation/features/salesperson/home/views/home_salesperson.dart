@@ -24,7 +24,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
   List<String> listImage = [];
   int selectedSliderPosition = 0;
 
-  late TabController tabCtrl = TabController(length: 2, vsync: this);
+  late TabController tabCtrl = TabController(length: 3, vsync: this,initialIndex: 1);
 
   SalesController salesController = Get.put(SalesController());
 
@@ -34,10 +34,9 @@ class _SalesDashBoardState extends State<SalesDashBoard>
   @override
   void initState() {
     super.initState();
-    tabCtrl = TabController(length: 2, vsync: this);
+    tabCtrl = TabController(length: 3, vsync: this,initialIndex: 1);
     salesController.getAmountBySale();
   }
-
 
 
   Future<bool> willPop(BuildContext ctx, {String? title}) {
@@ -111,15 +110,55 @@ class _SalesDashBoardState extends State<SalesDashBoard>
           backgroundColor: Color(0xFFE8F5FF),
           brightness: Brightness.dark,
           elevation: 0,
-          title: Padding(
-            padding: const EdgeInsets.only(right: 60),
-            child: Image.asset(
-              'assets/logo/home_logo.png',
-              height: 35,
-              fit: BoxFit.cover,
-            ),
+          title: Image.asset(
+            'assets/logo/home_logo.png',
+            height: 35,
+            fit: BoxFit.cover,
           ),
-          centerTitle: true,
+          centerTitle: false,
+          automaticallyImplyLeading: true,
+          actions: <Widget>[
+            IconButton(
+                icon: Stack(
+                  children: [
+                    Icon(
+                      Icons.notifications,
+                      color: Color(0xff4A4D52),
+                      size: 25,
+                    ),
+                    Positioned(
+                      top: 5,
+                      right: 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          color: Color(0xff53D226),
+                          border: Border.all(color: Colors.white,width: 1)
+                        ),
+                        height: 6,
+                        width: 6,
+                      ),
+                    )
+                  ],
+                ),
+                onPressed: () {}
+            ),
+            InkWell(
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                margin:EdgeInsets.only(right: 10) ,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                      'assets/images/portrait_placeholder.png',
+                      fit: BoxFit.cover,
+                    width: 45,
+                    height: 0,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
         drawer: MyDrawer(),
         extendBody: true,
@@ -129,237 +168,239 @@ class _SalesDashBoardState extends State<SalesDashBoard>
             children: [
               Obx(() {
                 if ( salesController.prefinanceData.value != null ) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(bottom: 15),
-                    decoration: BoxDecoration(
+                  return Card(
+                    elevation: 5,
+                    color: Color(0xFFE8F5FF),
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.elliptical(30, 30),
                         bottomRight: Radius.elliptical(30, 30),
                       ),
-                      color: Color(0xFFE8F5FF),
                     ),
-                    child: Column(
-                      children: [
-                        // SizedBox(height: 15),
-                        // SearchBar(),
-                        SizedBox(height: 20),
-                        Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20,bottom: 20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 15),
+                          SearchBar(),
+                          SizedBox(height: 20),
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Total Financed',
+                                  style: TextStyle(
+                                    color: Color(0xFF034A8F),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                  ),
+                                  // textAlign: TextAlign.left,
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  NumberFormat.decimalPattern().format(salesController.prefinanceData.value?.totalFinanced ?? 0)+" FCFA",
+                                  style: TextStyle(
+                                    color: Color(0xFF000000),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 26,
+                                  ),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Column(
                             children: [
-                              Text(
-                                'Total Financed',
-                                style: TextStyle(
-                                  color: Color(0xFF034A8F),
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14,
-                                ),
-                                // textAlign: TextAlign.left,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child:  Card(
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Container(
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Color(0xFF000000), width: 1),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              'Total of Clients',
+                                              style: TextStyle(
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            Text(
+                                              '${salesController.prefinanceData.value?.nbrCustomers ?? 0}',
+                                              style: TextStyle(
+                                                color: Color(0xFF034A8F),
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 24,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Card(
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Container(
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Color(0xFF53D226), width: 1),
+                                          borderRadius: BorderRadius.circular(10),
+                                          // color: Color(0xFFF034A8F),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              'Total Repaid',
+                                              style: TextStyle(
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            Text(
+                                              NumberFormat.decimalPattern()
+                                                  .format(
+                                                  salesController.prefinanceData.value?.totalrepaid ??
+                                                      0),
+                                              style: TextStyle(
+                                                color: Color(0xFF53D226),
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 18,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                NumberFormat.decimalPattern().format(salesController.prefinanceData.value?.totalFinanced ?? 0),
-                                style: TextStyle(
-                                  color: Color(0xFF000000),
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 26,
-                                ),
-                                // textAlign: TextAlign.center,
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Expanded(
+                                    child: Card(
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Container(
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Color(0xFFFF0000), width: 1),
+                                          borderRadius: BorderRadius.circular(10),
+                                          // color: Color(0xFFF3B63F),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              'Delayed',
+                                              style: TextStyle(
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            Text(
+                                              NumberFormat.decimalPattern().format(salesController.prefinanceData.value?.amountdue ?? 0),
+                                              style: TextStyle(
+                                                color: Color(0xFFFF0000),
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 18,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Card(
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Container(
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Color(0xFF034A8F), width: 1),
+                                          borderRadius: BorderRadius.circular(10),
+                                          // color: Color(0xFFF034A8F),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              'Not yet Due',
+                                              style: TextStyle(
+                                                color: Color(0xFF000000),
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            Text(
+                                              NumberFormat.decimalPattern()
+                                                  .format(
+                                                  salesController.prefinanceData.value?.totaladvance ??
+                                                      0),
+                                              style: TextStyle(
+                                                color: Color(0xFF034A8F),
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 18,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Card(
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Container(
-                                    height: 60,
-                                    width: 155,
-                                    padding:
-                                    EdgeInsets.only(left: 10, right: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Color(0xFF000000), width: 1),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          'Total of Clients',
-                                          style: TextStyle(
-                                            color: Color(0xFF000000),
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 14,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          '${salesController.prefinanceData.value?.nbrCustomers ?? 0}',
-                                          style: TextStyle(
-                                            color: Color(0xFF034A8F),
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 24,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Card(
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Container(
-                                    height: 60,
-                                    width: 156,
-                                    padding:
-                                    EdgeInsets.only(left: 10, right: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Color(0xFF53D226), width: 1),
-                                      borderRadius: BorderRadius.circular(10),
-                                      // color: Color(0xFFF034A8F),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          'Total Repaid',
-                                          style: TextStyle(
-                                            color: Color(0xFF000000),
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 14,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          NumberFormat.decimalPattern()
-                                              .format(
-                                              salesController.prefinanceData.value?.totalrepaid ??
-                                                  0),
-                                          style: TextStyle(
-                                            color: Color(0xFF53D226),
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 18,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Card(
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Container(
-                                    height: 60,
-                                    width: 155,
-                                    padding:
-                                    EdgeInsets.only(left: 10, right: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Color(0xFFFF0000), width: 1),
-                                      borderRadius: BorderRadius.circular(10),
-                                      // color: Color(0xFFF3B63F),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          'Delayed',
-                                          style: TextStyle(
-                                            color: Color(0xFF000000),
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 14,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          NumberFormat.decimalPattern().format(salesController.prefinanceData.value?.amountdue ?? 0),
-                                          style: TextStyle(
-                                            color: Color(0xFFFF0000),
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 18,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Card(
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Container(
-                                    height: 60,
-                                    width: 155,
-                                    padding:
-                                    EdgeInsets.only(left: 10, right: 10),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Color(0xFF034A8F), width: 1),
-                                      borderRadius: BorderRadius.circular(10),
-                                      // color: Color(0xFFF034A8F),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          'Not yet Due',
-                                          style: TextStyle(
-                                            color: Color(0xFF000000),
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 14,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          NumberFormat.decimalPattern()
-                                              .format(
-                                              salesController.prefinanceData.value?.totaladvance ??
-                                                  0),
-                                          style: TextStyle(
-                                            color: Color(0xFF034A8F),
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 18,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     // ),
                   );
@@ -369,25 +410,42 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                   );
                 }
               }),
-
-              SizedBox(height: 10),
               Container(
                 child: TabBar(
                   controller: tabCtrl,
                   labelColor: Color(0xFF6F8C2E),
                   unselectedLabelColor: Color(0xFF1A1A27),
+                  indicatorSize: TabBarIndicatorSize.label,
+                  indicatorColor: Color(0xff074A8F),
+                  enableFeedback: false,
+                  overlayColor: MaterialStateProperty.all(Colors.transparent),
+                  indicatorWeight: 3,
+                  labelStyle: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
                   tabs: const [
-                    Tab(
-                      text: 'Customers',
-                    ),
-                    Tab(
-                      text: 'Products',
-                    ),
+                    Tab(text: 'Targets'),
+                    Tab(text: 'Customers'),
+                    Tab(text: 'Products'),
                   ],
                 ),
               ),
+              SizedBox(height: 10),
               Expanded(
                 child: TabBarView(controller: tabCtrl, children: [
+                  SingleChildScrollView(
+                    child:
+                    Obx(() => salesController.customerSalesList.value != null && salesController.customerSalesList.value!.isNotEmpty
+                        ? Container(color: Color(0xFFF2F2F2),
+                      child: Column(
+                        children: [
+
+                        ],
+                      ),
+                    )
+                        : Center(child: CircularProgressIndicator(),)),
+                  ),
 
                   /*Customers*/
                   SingleChildScrollView(
@@ -401,101 +459,108 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                         Column(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets
-                                                      .only(
-                                                      left: 5,
-                                                      right: 5),
-                                                  child: SizedBox(
-                                                    width: MediaQuery.of(
-                                                        context)
-                                                        .size
-                                                        .width /
-                                                        1.7,
-                                                    child: Card(
-                                                      color: Colors.white,
-                                                      shape: RoundedRectangleBorder(borderRadius:
-                                                          BorderRadius.circular(8)),
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.only(
-                                                            left: 15,
-                                                            top: 10,
-                                                            bottom:
-                                                            10),
-                                                        child: DropdownButton(underline: Container(),
-                                                                hint: Text("Select Customer"),
-                                                                icon: const Icon(Icons.keyboard_arrow_down),
-                                                                isDense: true,
-                                                                isExpanded: true,
-                                                                value: salesController.customerdisplayed.value,
-                                                                onChanged: (c) {
-                                                                  salesController.customerdisplayed.value = c as String;
-                                                                  print(c);
-                                                                  final item = salesController.customerSalesList.value!.firstWhere((e) => e['firstname'] == c);
-                                                                  salesController.customer = item;
-                                                                  salesController.getAmountByCustumer(item["customerid"]);
-                                                                  salesController.getPrelemtByCust(item["customerid"].toString());
-                                                                },
-                                                                items: salesController.customerSalesList.value?.map((client) {
-                                                                      return DropdownMenuItem(
-                                                                        value: client['firstname'],
-                                                                        child: Text('${client['firstname']} ${client['lastname']}'),);
-                                                                    }).toList(),
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 10, right: 10),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(left: 5, right: 5),
+                                                      child: DropdownButtonFormField(
+                                                        isExpanded:true,
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        autovalidateMode:AutovalidateMode.onUserInteraction,
+                                                        focusColor:Colors.black,
+                                                        iconEnabledColor:Colors.black,
+                                                        style: const TextStyle(
+                                                            fontStyle: FontStyle.normal,
+                                                            color: Colors.grey,
+                                                            fontSize: 14
                                                         ),
+                                                        decoration: InputDecoration(
+                                                          enabledBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              borderSide: BorderSide(color:  Color(0xff034A8F) ),
+                                                              gapPadding: 10
+                                                          ),
+                                                          focusedBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              borderSide: const BorderSide(color: Color(0xff034A8F)),
+                                                              gapPadding: 10
+                                                          ),
+                                                          border: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              borderSide: const BorderSide(color: Color(0xff034A8F)),
+                                                              gapPadding: 10
+                                                          ),
+                                                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                          filled: true,
+                                                          fillColor: Colors.white,
+                                                          contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                                        ),
+                                                        dropdownColor: Colors.white,
+                                                        hint: Text("Select Customer"),
+                                                        icon: Container(
+                                                            height: 30,
+                                                            margin: EdgeInsets.only(right: 2),
+                                                            decoration: BoxDecoration(
+                                                                color: Color(0xff034A8F).withOpacity(0.1),
+                                                                borderRadius: BorderRadius.circular(20)
+                                                            ),
+                                                            child: Icon(Icons.keyboard_arrow_down_outlined,color: Color(0xff034A8F))
+                                                        ),
+                                                        isDense: true,
+                                                        value: salesController.customerdisplayed.value,
+
+                                                        onChanged: (c) {
+                                                          salesController.customerdisplayed.value = c as String;
+                                                          print(c);
+                                                          final item = salesController.customerSalesList.value!.firstWhere((e) => e['firstname'] == c);
+                                                          salesController.customer = item;
+                                                          salesController.getAmountByCustumer(item["customerid"]);
+                                                          salesController.getPrelemtByCust(item["customerid"].toString());
+                                                        },
+
+                                                        items: salesController.customerSalesList.value?.map((client) {
+                                                          return DropdownMenuItem(
+                                                            value: client['firstname'],
+                                                            child: Text('${client['firstname']} ${client['lastname']}'),);
+                                                        }).toList(),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    Get.toNamed("add-customer");
-                                                  },
-                                                  child: Icon(Icons.person_add_alt, size: 25,),
-                                                  style: ElevatedButton.styleFrom(
-                                                    primary: Color(
-                                                        0xFF074A8F),
-                                                    shape:
-                                                    RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(
-                                                          8),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      Get.toNamed("add-customer");
+                                                    },
+                                                    child: Icon(Icons.person_add_alt, size: 25,),
+                                                    style: ElevatedButton.styleFrom(
+                                                      primary: Color(0xFF074A8F),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                      ),
+                                                      minimumSize:
+                                                      Size(35, 45),
                                                     ),
-                                                    minimumSize:
-                                                    Size(35, 45),
                                                   ),
-                                                ),
-                                                SizedBox(width: 5),
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    Get.to(
-                                                        ListProduct());
-                                                  },
-                                                  child: Icon(
-                                                    Icons
-                                                        .shopping_cart_outlined,
-                                                    size: 25,
-                                                  ),
-                                                  style:
-                                                  ElevatedButton
-                                                      .styleFrom(
-                                                    primary: Color(
-                                                        0xFF6F8C2E),
-                                                    shape:
-                                                    RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(
-                                                          8),
+                                                  SizedBox(width: 5),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      Get.to(
+                                                          ListProduct());
+                                                    },
+                                                    child: Icon(Icons.shopping_cart_outlined, size: 25,),
+                                                    style: ElevatedButton.styleFrom(
+                                                      primary: Color(0xFF6F8C2E),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:BorderRadius.circular(8),
+                                                      ),
+                                                      minimumSize:
+                                                      Size(20, 45),
                                                     ),
-                                                    minimumSize:
-                                                    Size(20, 45),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                             SizedBox(height: 15),
                                             Container(
@@ -518,131 +583,157 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                             ),
                                           ],
                                         ),
-
                                         Obx(() => salesController.amountCust.value != null ? Container(
-                                            height: 220,
-                                            margin: EdgeInsets.only(
-                                                left:
-                                                10,
-                                                right:
-                                                10),
                                             decoration: BoxDecoration(
-                                                color: Color(
-                                                    0xFFFFFFFF),
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    14),
-                                                border: Border.all(
-                                                    color: Color(
-                                                        0xFFC4C4C4),
-                                                    width:
-                                                    1)),
+                                              color: Colors.white,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black.withOpacity(0.5),
+                                                  blurRadius: 4.0,
+                                                  spreadRadius: 0.0,
+                                                  offset: Offset(
+                                                    1.0,
+                                                    1.0,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                             child: Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceEvenly,
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                // table
-                                                SingleChildScrollView(
-                                                  scrollDirection:
-                                                  Axis.horizontal,
-                                                  child: DataTable(
-                                                    // columnSpacing: 50,
-                                                      headingRowHeight: 0,
-                                                      columns: [
-                                                        DataColumn(label: Text('',),),
-                                                        DataColumn(label: Text('')),
-                                                        DataColumn(label: Text(''),)
-                                                      ],
-                                                      rows: [
-                                                        DataRow(cells: [
-                                                          DataCell(
-                                                            Text(
-                                                              'Total Financed Amount',
-                                                              style: TextStyle(
-                                                                color: Color(0xFF034A8F),
-                                                                fontWeight: FontWeight.w700,
-                                                                fontSize: 12,
-                                                              ),
+                                                SizedBox(height: 20),
+                                                Container(
+                                                  margin: EdgeInsets.only(left: 20,right: 20),
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                    border: Border(
+                                                      bottom: BorderSide(color: Colors.grey,width: 1)
+                                                    )
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Expanded(
+                                                          child: Text(
+                                                        'Total Financed\nAmount',
+                                                        style: TextStyle(
+                                                          color: Color(0xFF034A8F),
+                                                          fontWeight: FontWeight.w500,
+                                                          fontSize: 12,
+                                                        ),
+                                                      )
+                                                      ),
+                                                      Expanded(
+                                                          child: Text(
+                                                            NumberFormat.decimalPattern().format(salesController.amountCust.value?.totalgobal ?? 0),
+                                                            style: TextStyle(
+                                                              color: Color(0xFF848484),
+                                                              fontWeight: FontWeight.w500,
+                                                              fontSize: 12,
                                                             ),
-                                                          ),
-                                                          DataCell(
-                                                            Text(
-                                                              NumberFormat.decimalPattern().format(salesController.amountCust.value?.totalgobal ?? 0),
-                                                              style: TextStyle(
-                                                                color: Color(0xFF848484),
-                                                                fontWeight: FontWeight.w700,
-                                                                fontSize: 12,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          DataCell(
-                                                            Text(''),
-                                                            //     color: Color(0xFF034A8F)),
                                                           )
-                                                        ]),
-                                                        DataRow(cells: [
-                                                          DataCell(
-                                                            Text(
-                                                              'Total Balance',
-                                                              style: TextStyle(
-                                                                color: Color(0xFF034A8F),
-                                                                fontWeight: FontWeight.w700,
-                                                                fontSize: 12,
-                                                              ),
-                                                            ),
+                                                      ),
+                                                      IconButton(
+                                                          icon: Icon(
+                                                            Icons.remove_red_eye_outlined,
+                                                            color: Color(0xff074A8F),
+                                                            size: 25,
                                                           ),
-                                                          DataCell(
-                                                            Text(
-                                                              NumberFormat.decimalPattern().format(salesController.amountCust.value?.currentamountdue ?? 0),
-                                                              style: TextStyle(
-                                                                color: Color(0xFF848484),
-                                                                fontWeight: FontWeight.w700,
-                                                                fontSize: 12,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          DataCell(
-                                                            Text(''),
-                                                          )
-                                                        ]),
-                                                        DataRow(cells: [
-                                                          DataCell(
-                                                            Text(
-                                                              'Total Repaid',
-                                                              style: TextStyle(
-                                                                color: Color(0xFF000000),
-                                                                fontWeight: FontWeight.w700,
-                                                                fontSize: 12,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          DataCell(
-                                                            Text(
-                                                              NumberFormat.decimalPattern().format(salesController.amountCust.value?.currenttotalrepaid ?? 0),
-                                                              style: TextStyle(
-                                                                color: Color(0xFF848484),
-                                                                fontWeight: FontWeight.w700,
-                                                                fontSize: 12,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          DataCell(
-                                                            Text(''),
-                                                          )
-                                                        ]),
-                                                      ]
-                                                    // )
-                                                    //     .toList(),
+                                                          onPressed: () {}
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                SizedBox(
-                                                  height:
-                                                  10,
+                                                Container(
+                                                  margin: EdgeInsets.only(left: 20,right: 20),
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                      border: Border(
+                                                          bottom: BorderSide(color: Colors.grey,width: 1)
+                                                      )
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Expanded(
+                                                          child: Text(
+                                                            'Total Balance',
+                                                            style: TextStyle(
+                                                              color: Color(0xFF034A8F),
+                                                              fontWeight: FontWeight.w500,
+                                                              fontSize: 12,
+                                                            ),
+                                                          )
+                                                      ),
+                                                      Expanded(
+                                                          child: Text(
+                                                            NumberFormat.decimalPattern().format(salesController.amountCust.value?.currentamountdue ?? 0),
+                                                            style: TextStyle(
+                                                              color: Color(0xFF848484),
+                                                              fontWeight: FontWeight.w500,
+                                                              fontSize: 12,
+                                                            ),
+                                                          )
+                                                      ),
+                                                      IconButton(
+                                                          icon: Icon(
+                                                            Icons.remove_red_eye_outlined,
+                                                            color: Color(0xff074A8F),
+                                                            size: 25,
+                                                          ),
+                                                          onPressed: () {}
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
+                                                Container(
+                                                  margin: EdgeInsets.only(left: 20,right: 20),
+                                                  alignment: Alignment.center,
+                                                  decoration: BoxDecoration(
+                                                      border: Border(
+                                                          bottom: BorderSide(color: Colors.grey,width: 1)
+                                                      )
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Expanded(
+                                                          child: Text(
+                                                            'Total Repaid',
+                                                            style: TextStyle(
+                                                              color: Color(0xFF034A8F),
+                                                              fontWeight: FontWeight.w500,
+                                                              fontSize: 12,
+                                                            ),
+                                                          )
+                                                      ),
+                                                      Expanded(
+                                                          child: Text(
+                                                            NumberFormat.decimalPattern().format(salesController.amountCust.value?.currenttotalrepaid ?? 0),
+                                                            style: TextStyle(
+                                                              color: Color(0xFF848484),
+                                                              fontWeight: FontWeight.w500,
+                                                              fontSize: 12,
+                                                            ),
+                                                          )
+                                                      ),
+                                                      IconButton(
+                                                          icon: Icon(
+                                                            Icons.remove_red_eye_outlined,
+                                                            color: Color(0xff074A8F),
+                                                            size: 25,
+                                                          ),
+                                                          onPressed: () {}
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(height: 20),
                                                 Center(
-                                                  child:
-                                                  Container(
+                                                  child: Container(
                                                     height: 30,
                                                     width: MediaQuery.of(context).size.width * 0.4,
                                                     child: ElevatedButton(
@@ -663,10 +754,8 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                       ),
                                                       style:
                                                       ElevatedButton.styleFrom(
-                                                        primary:
-                                                        Color(0xFF6F8C2E),
-                                                        shape:
-                                                        RoundedRectangleBorder(
+                                                        primary: Color(0xFF6F8C2E),
+                                                        shape: RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.circular(15),
                                                         ),
                                                         // elevation: 5.0,
@@ -674,39 +763,38 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                     ),
                                                   ),
                                                 ),
+                                                SizedBox(height: 20),
                                               ],
                                             ),
-                                          )
-                                              : Column(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets
-                                                    .only(
-                                                    top:
-                                                    30),
-                                                child: Text(
-                                                  'No Prefinancial Found',
-                                                  style:
-                                                  TextStyle(
-                                                    color: Color(
-                                                        0xFF848484),
-                                                    fontWeight:
-                                                    FontWeight.w400,
-                                                    fontSize:
-                                                    16,
-                                                  ),
+                                          ) :
+                                          Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets
+                                                  .only(
+                                                  top:
+                                                  30),
+                                              child: Text(
+                                                'No Prefinancial Found',
+                                                style:
+                                                TextStyle(
+                                                  color: Color(
+                                                      0xFF848484),
+                                                  fontWeight:
+                                                  FontWeight.w400,
+                                                  fontSize:
+                                                  16,
                                                 ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
+                                        ),
                                         ),
 
                                         //Products Details
                                         Padding(
                                           padding:
-                                          const EdgeInsets.only(
-                                              top: 50,
-                                              bottom: 10),
+                                          const EdgeInsets.only(top: 50, bottom: 10),
                                           child: Text(
                                             'Products Details',
                                             style: TextStyle(
@@ -731,24 +819,12 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                                         itemBuilder: (BuildContext context, int index) {
                                                           return Card(elevation: 5,
                                                             color: Color(0xFFDEF3FB),
-                                                            shape:
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                              BorderRadius.circular(12),
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.circular(12),
                                                             ),
                                                             child: Container(
-                                                              // width: 550,
-                                                              height:
-                                                              62,
-                                                              padding: EdgeInsets.only(
-                                                                  top:
-                                                                  5,
-                                                                  left:
-                                                                  8,
-                                                                  bottom:
-                                                                  5,
-                                                                  right:
-                                                                  8),
+                                                              height: 62,
+                                                              padding: EdgeInsets.only(top: 5, left: 8, bottom: 5, right: 8),
                                                               decoration:
                                                               BoxDecoration(
                                                                 color:
@@ -888,247 +964,383 @@ class _SalesDashBoardState extends State<SalesDashBoard>
 
                   /* Products*/
                   SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 10),
-                        SingleChildScrollView(
-                          child: Container(
-                            margin: EdgeInsets.only(left: 10, right: 10),
-                            child: Obx(() {
-                              if ( salesController.prelemtBySaleList.value != null && salesController.prelemtBySaleList.value!.isNotEmpty ) {
-                                return ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: salesController.prelemtBySaleList.value!.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return Card(
-                                      elevation: 5,
-                                      color: Color(0xFFDEF3FB),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(12),
-                                      ),
-                                      child: Column(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      padding: EdgeInsets.only(bottom: 50),
+                      child: Obx(() {
+                        if ( salesController.prelemtBySaleList.value != null && salesController.prelemtBySaleList.value!.isNotEmpty ) {
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: salesController.prelemtBySaleList.value!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Card(
+                                elevation: 2,
+                                margin:EdgeInsets.only(bottom: 15) ,
+                                color: Color(0xFFDEF3FB),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      /*Text(
+                                        '${salesController.prelemtBySaleList.value?[index].customername}',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16,
+                                        ),
+                                      ),*/
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
-                                            // color: Color(0xFF034A8F),
-                                            decoration: BoxDecoration(
-                                              color:
-                                              Color(0xFF034A8F),
-                                              borderRadius:
-                                              BorderRadius.only(
-                                                  topLeft: Radius
-                                                      .circular(
-                                                      12),
-                                                  topRight: Radius
-                                                      .circular(
-                                                      12)),
-                                            ),
-                                            height: 20,
-                                            width:
-                                            MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            alignment:
-                                            Alignment.centerLeft,
-                                            padding: EdgeInsets.only(
-                                                left: 15),
-                                            child: Text(
-                                              '${salesController.prelemtBySaleList.value?[index].customername}',
-                                              style: TextStyle(
-                                                color:
-                                                Color(0xFFFFFFFF),
-                                                fontWeight:
-                                                FontWeight.w700,
-                                                fontSize: 16,
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Product Name',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 11,
+                                                  color: Color(0xFF83848B),
+                                                ),
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                '${salesController.prelemtBySaleList.value?[index].productname}',
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 12,
+                                                  color: Color(0xFF034A8F),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Financed',
+                                                style:
+                                                TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 11,
+                                                  color: Color(0xFF83848B),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  height: 10),
+                                              Text(
+                                                NumberFormat.decimalPattern().format(salesController.prelemtBySaleList.value?[index].totalRe ?? 0),
+                                                overflow: TextOverflow.visible,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Balance',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 11,
+                                                  color: Color(0xFF83848B),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  height: 10),
+                                              Text(
+                                                NumberFormat.decimalPattern().format(salesController.prelemtBySaleList.value?[index].amountDu ?? 0),
+                                                overflow: TextOverflow.visible,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12,
+                                                  color: Color(0xFF6F8C2E),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          IconButton(
+                                            padding: EdgeInsets.zero,
+                                            enableFeedback: false,
+                                            constraints: BoxConstraints.expand(width: 25,height: 25),
+                                            onPressed: () {
+
+                                              print(salesController.prelemtBySaleList.value?[index].toJson());
+
+                                              Get.to(Payment(prelementData: salesController.prelemtBySaleList.value?[index],));
+
+                                            },
+                                            icon: Icon(
+                                                Icons.remove_red_eye_outlined,
+                                                color: Color(0xFF034A8F)),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              payModal(salesController.prelemtBySaleList.value![index]);
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
+                                              primary: Color(0xFF034A8F),
+                                              minimumSize: Size(20, 20),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(7),
                                               ),
                                             ),
-                                          ),
-                                          Container(
-                                            // width: 550,
-                                            height: 55,
-                                            padding: EdgeInsets.only(
-                                                top: 5,
-                                                left: 8,
-                                                bottom: 5,
-                                                right: 8),
-                                            decoration: BoxDecoration(
-                                              color:
-                                              Color(0xFFDEF3FB),
-                                              borderRadius:
-                                              BorderRadius
-                                                  .circular(12),
-                                              // border: Border.all(color: Colors.grey, width: 1),
-                                            ),
                                             child: Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment
-                                                  .spaceBetween,
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
-                                                Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .center,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
-                                                  children: [
-                                                    Text(
-                                                      'Product Name',
-                                                      style:
-                                                      TextStyle(
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w400,
-                                                        fontSize: 11,
-                                                        color: Color(
-                                                            0xFF83848B),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                        height: 10),
-                                                    Text(
-                                                      '${salesController.prelemtBySaleList.value?[index].productname}',
-                                                      style:
-                                                      TextStyle(
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w700,
-                                                        fontSize: 12,
-                                                        color: Color(
-                                                            0xFF034A8F),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                Text("Pay",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 13
+                                                    )
                                                 ),
-                                                Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .center,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment
-                                                      .start,
-                                                  children: [
-                                                    Text(
-                                                      'Financed',
-                                                      style:
-                                                      TextStyle(
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w400,
-                                                        fontSize: 11,
-                                                        color: Color(
-                                                            0xFF83848B),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                        height: 10),
-                                                    Text(
-                                                      NumberFormat.decimalPattern().format(salesController.prelemtBySaleList.value?[index].totalRe ?? 0),
-                                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-                                                    ),
-                                                  ],
+                                                Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color: Colors.white,
+                                                  size: 12,
                                                 ),
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'Balance',
-                                                      style:
-                                                      TextStyle(
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w400,
-                                                        fontSize: 11,
-                                                        color: Color(
-                                                            0xFF83848B),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                        height: 10),
-                                                    Text(
-                                                      NumberFormat
-                                                          .decimalPattern()
-                                                          .format(salesController.prelemtBySaleList.value?[index].amountDu ?? 0),
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .w600,
-                                                          fontSize:
-                                                          12),
-                                                    ),
-                                                  ],
-                                                ),
-                                                InkWell(
-                                                  onTap: () {
-
-                                                    print(salesController.prelemtBySaleList.value?[index].toJson());
-
-                                                    Get.to(Payment(prelementData: salesController.prelemtBySaleList.value?[index],));
-
-                                                  },
-                                                  child: Icon(
-                                                      Icons
-                                                          .remove_red_eye_outlined,
-                                                      color: Color(
-                                                          0xFF034A8F)),
-                                                ),
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    payModal(salesController.prelemtBySaleList.value![index]);
-                                                  },
-                                                  style:
-                                                  ElevatedButton
-                                                      .styleFrom(
-                                                    primary: Color(
-                                                        0xFF034A8F),
-                                                    minimumSize:
-                                                    Size(30, 20),
-                                                    shape:
-                                                    RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(
-                                                          7),
-                                                    ),
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      Text("Pay",
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize:
-                                                              13)),
-                                                      SizedBox(
-                                                          width: 3),
-                                                      Icon(
-                                                        Icons
-                                                            .arrow_forward_ios,
-                                                        color: Colors
-                                                            .white,
-                                                        size: 12,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
                                               ],
                                             ),
-                                          ),
+                                          )
                                         ],
                                       ),
-                                    );
-                                  },
-                                );
-                              } else {
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-                            }),
-                          ),
-                        ),
-                      ],
+                                    ],
+                                  ),
+                                ),
+                              );
+                              // la carte en dessous represente l ancien design
+                              // choisis et supprime celle qui ne te convient pas
+                              return Card(
+                                elevation: 5,
+                                color: Color(0xFFDEF3FB),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      // color: Color(0xFF034A8F),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF034A8F),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(12),
+                                            topRight: Radius.circular(12)),
+                                      ),
+                                      height: 20,
+                                      width: MediaQuery.of(context).size.width,
+                                      alignment: Alignment.centerLeft,
+                                      padding: EdgeInsets.only(left: 15),
+                                      child: Text(
+                                        '${salesController.prelemtBySaleList.value?[index].customername}',
+                                        style: TextStyle(
+                                          color:
+                                          Color(0xFFFFFFFF),
+                                          fontWeight:
+                                          FontWeight.w700,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      // width: 550,
+                                      height: 55,
+                                      padding: EdgeInsets.only(
+                                          top: 5,
+                                          left: 8,
+                                          bottom: 5,
+                                          right: 8),
+                                      decoration: BoxDecoration(
+                                        color:
+                                        Color(0xFFDEF3FB),
+                                        borderRadius:
+                                        BorderRadius
+                                            .circular(12),
+                                        // border: Border.all(color: Colors.grey, width: 1),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .center,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment
+                                                .start,
+                                            children: [
+                                              Text(
+                                                'Product Name',
+                                                style:
+                                                TextStyle(
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w400,
+                                                  fontSize: 11,
+                                                  color: Color(
+                                                      0xFF83848B),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  height: 10),
+                                              Text(
+                                                '${salesController.prelemtBySaleList.value?[index].productname}',
+                                                style:
+                                                TextStyle(
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w700,
+                                                  fontSize: 12,
+                                                  color: Color(
+                                                      0xFF034A8F),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .center,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment
+                                                .start,
+                                            children: [
+                                              Text(
+                                                'Financed',
+                                                style:
+                                                TextStyle(
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w400,
+                                                  fontSize: 11,
+                                                  color: Color(
+                                                      0xFF83848B),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  height: 10),
+                                              Text(
+                                                NumberFormat.decimalPattern().format(salesController.prelemtBySaleList.value?[index].totalRe ?? 0),
+                                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Balance',
+                                                style:
+                                                TextStyle(
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w400,
+                                                  fontSize: 11,
+                                                  color: Color(
+                                                      0xFF83848B),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  height: 10),
+                                              Text(
+                                                NumberFormat
+                                                    .decimalPattern()
+                                                    .format(salesController.prelemtBySaleList.value?[index].amountDu ?? 0),
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w600,
+                                                    fontSize:
+                                                    12),
+                                              ),
+                                            ],
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+
+                                              print(salesController.prelemtBySaleList.value?[index].toJson());
+
+                                              Get.to(Payment(prelementData: salesController.prelemtBySaleList.value?[index],));
+
+                                            },
+                                            child: Icon(
+                                                Icons
+                                                    .remove_red_eye_outlined,
+                                                color: Color(
+                                                    0xFF034A8F)),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              payModal(salesController.prelemtBySaleList.value![index]);
+                                            },
+                                            style:
+                                            ElevatedButton
+                                                .styleFrom(
+                                              primary: Color(
+                                                  0xFF034A8F),
+                                              minimumSize:
+                                              Size(30, 20),
+                                              shape:
+                                              RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius
+                                                    .circular(
+                                                    7),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Text("Pay",
+                                                    style: TextStyle(
+                                                        color: Colors
+                                                            .white,
+                                                        fontSize:
+                                                        13)),
+                                                SizedBox(
+                                                    width: 3),
+                                                Icon(
+                                                  Icons
+                                                      .arrow_forward_ios,
+                                                  color: Colors
+                                                      .white,
+                                                  size: 12,
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      })
                     ),
                   ),
                 ]),
@@ -1141,36 +1353,35 @@ class _SalesDashBoardState extends State<SalesDashBoard>
   }
 
   Widget SearchBar() {
-    return const Padding(
-      padding: EdgeInsets.only(left: 15, right: 15),
-      child: SizedBox(
-        height: 40,
-        child: TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
+    return SizedBox(
+      height: 40,
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+          ),
+          fillColor: Colors.white,
+          filled: true,
+          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          prefixIcon: Align(
+            widthFactor: 1.0,
+            heightFactor: 1.0,
+            child: Icon(
+              Icons.search,
+              color: Colors.black,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50)),
-            ),
-            fillColor: Colors.white,
-            filled: true,
-            contentPadding: EdgeInsets.symmetric(horizontal: 10),
-            prefixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Icon(
-                Icons.search,
-              ),
-            ),
-            hintText: 'Search product ...',
-            //8AA0BC
-            suffixIcon: Align(
-              widthFactor: 1.0,
-              heightFactor: 1.0,
-              child: Icon(
-                Icons.tune,
-              ),
+          ),
+          hintText: 'Search product ...',
+          //8AA0BC
+          suffixIcon: Align(
+            widthFactor: 1.0,
+            heightFactor: 1.0,
+            child: Icon(
+              Icons.tune,
+              color: Colors.black,
             ),
           ),
         ),

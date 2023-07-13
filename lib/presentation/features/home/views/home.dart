@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:payamlater/presentation/features/home/views/components/item_card2.dart';
@@ -89,30 +88,25 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.transparent,
           brightness: Brightness.dark,
           elevation: 0,
-          title: Padding(
-            padding: const EdgeInsets.only(right: 60),
+          title: Container(
+            color: Colors.red,
+            width: Get.width,
             child: Image.asset(
               'assets/logo/home_logo.png',
               height: 35,
               fit: BoxFit.cover,
             ),
           ),
-          centerTitle: true,
+          centerTitle: false,
           actions: <Widget>[
-
-            Transform.translate(
-                offset: Offset(5 * 0.5, 0),
-                child: IconButton(
-                    icon: Align(
-                      widthFactor: 1.0,
-                      heightFactor: 1.0,
-                      child: Icon(
-                        Icons.account_circle,
-                        color: Colors.black,
-                        size: 30,
-                      ),
-                    ),
-                    onPressed: () {})),
+            IconButton(
+                icon: Icon(
+                  Icons.notifications,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {}
+            ),
           ],
         ),
         drawer: MyDrawer(),

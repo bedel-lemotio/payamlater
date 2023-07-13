@@ -428,8 +428,7 @@ class ProfileScreen extends GetView<AddCustomerController> {
           height: 70,
           decoration: BoxDecoration(
             color:Color(0xffF4FBFE),
-              boxShadow: [
-              BoxShadow(
+              boxShadow: [BoxShadow(
                 color: Colors.black.withOpacity(0.5),
                 blurRadius: 4.0,
                 spreadRadius: 0.0,

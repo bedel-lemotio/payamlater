@@ -40,6 +40,9 @@ class SalesController extends GetxController {
   final storage = GetStorage();
   List data = [];
 
+  late PageController pageController;
+  RxInt activeStep = RxInt(0);
+
   /*Create customer*/
   TextEditingController idcustomer = TextEditingController();
   TextEditingController membertype = TextEditingController();
@@ -56,6 +59,7 @@ class SalesController extends GetxController {
   @override
   void onInit() async {
     // Fetch Data
+    pageController = PageController(initialPage: activeStep.value, keepPage: true,);
     getAmountBySale();
     getAllClientBySales();
     getPaymentByPref();

@@ -38,6 +38,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
     salesController.getAmountBySale();
   }
 
+  final df = new DateFormat('dd-MM-yyyy');
 
   Future<bool> willPop(BuildContext ctx, {String? title}) {
     final completer = Completer<bool>();
@@ -184,7 +185,40 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 15),
-                          SearchBar(),
+                          SizedBox(
+                            height: 40,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                                ),
+                                fillColor: Colors.white,
+                                filled: true,
+                                contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                                prefixIcon: Align(
+                                  widthFactor: 1.0,
+                                  heightFactor: 1.0,
+                                  child: Icon(
+                                    Icons.search,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                hintText: 'Search product ...',
+                                //8AA0BC
+                                suffixIcon: Align(
+                                  widthFactor: 1.0,
+                                  heightFactor: 1.0,
+                                  child: Icon(
+                                    Icons.tune,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                           SizedBox(height: 20),
                           Container(
                             child: Column(
@@ -307,8 +341,7 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Expanded(
                                     child: Card(
@@ -440,7 +473,138 @@ class _SalesDashBoardState extends State<SalesDashBoard>
                         ? Container(color: Color(0xFFF2F2F2),
                       child: Column(
                         children: [
+                          Container(
+                              height: 60,
+                              padding: EdgeInsets.only(left: 30),
+                              width: MediaQuery.of(context).size.width,
+                              alignment: Alignment.centerLeft,
+                              color: Color(0xFFF2F2F2),
+                              child:Text(
+                                'Target of the Week',
+                                style: TextStyle(
+                                  color: Color(0xFF848484),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18,
+                                ),
+                              )
+                          ),
+                          Container(
+                            color: Colors.white,
+                            margin: EdgeInsets.only(top: 20,bottom: 20),
+                            child: DataTable(
+                                //dividerThickness:0.0,
+                                //showBottomBorder: false,
+                                columns: [
+                                  // Set the name of the column
+                                  DataColumn(label: Text(
+                                    "Item",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                    ),
+                                  )),
+                                  DataColumn(label: Text(
+                                    "Target",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                    ),
+                                  )),
+                                  DataColumn(label: Text(
+                                    "Actual",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                    ),
+                                  )),
+                                ],
+                                rows:[
+                                  // Set the values to the columns
+                                  DataRow(cells: [
+                                    DataCell(Text(
+                                      "Collection",
+                                      style: TextStyle(
+                                        color: Color(0xff034A8F),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    )),
+                                    DataCell(Text(
+                                      " 50,000 FCFA",
+                                      style: TextStyle(
+                                        color: Color(0xff848484),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                      ),
+                                    ),),
+                                    DataCell(Text(
+                                      " 50,000 FCFA",
+                                      style: TextStyle(
+                                        color: Color(0xff848484),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                      ),
+                                    ),),
+                                  ]),
+                                  DataRow(cells: [
+                                    DataCell(Text(
+                                      "Recovery",
+                                      style: TextStyle(
+                                        color: Color(0xff034A8F),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    )),
+                                    DataCell(Text(
+                                      " 50,000 FCFA",
+                                      style: TextStyle(
+                                        color: Color(0xff848484),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                      ),
+                                    ),),
+                                    DataCell(Text(
+                                      " 50,000 FCFA",
+                                      style: TextStyle(
+                                        color: Color(0xff848484),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                      ),
+                                    ),),
+                                  ]),
+                                  DataRow(cells: [
+                                    DataCell(Text(
+                                      "New Sales",
+                                      style: TextStyle(
+                                        color: Color(0xff034A8F),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    )),
+                                    DataCell(Text(
+                                      " 50,000 FCFA",
+                                      style: TextStyle(
+                                        color: Color(0xff848484),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                      ),
+                                    ),),
+                                    DataCell(Text(
+                                      " 50,000 FCFA",
+                                      style: TextStyle(
+                                        color: Color(0xff848484),
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14,
+                                      ),
+                                    ),),
+                                  ]),
+                                ]
 
+                            ),
+                          )
                         ],
                       ),
                     )
@@ -1352,365 +1516,621 @@ class _SalesDashBoardState extends State<SalesDashBoard>
     );
   }
 
-  Widget SearchBar() {
-    return SizedBox(
-      height: 40,
-      child: TextField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(50)),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(50)),
-          ),
-          fillColor: Colors.white,
-          filled: true,
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          prefixIcon: Align(
-            widthFactor: 1.0,
-            heightFactor: 1.0,
-            child: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
-          ),
-          hintText: 'Search product ...',
-          //8AA0BC
-          suffixIcon: Align(
-            widthFactor: 1.0,
-            heightFactor: 1.0,
-            child: Icon(
-              Icons.tune,
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
-  Future payModal(PrelementModel prelvalue) {
-    return showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-        builder: (context) {
-          return Form(
-            key: salesController.payFormKey,
-            child: SingleChildScrollView(
+  payModal(PrelementModel prelvalue){
+    Get.bottomSheet(
+      backgroundColor: Colors.black.withOpacity(0.1),
+      elevation: 2,
+      isDismissible: false,
+      enableDrag: false,
+      persistent: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(35),topRight: Radius.circular(35)),
+      ),
+      Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(35),topRight: Radius.circular(35)),
+          ),
+          child:SingleChildScrollView(
+            child: Form(
+              key: salesController.payFormKey,
               child: Column(
-                // mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  SizedBox(height: 25),
                   Container(
                       height: 40,
+                      padding: EdgeInsets.only(left: 20),
                       width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.centerLeft,
                       color: Color(0xFF034A8F),
-                      padding: EdgeInsets.only(left: 20, top: 10),
-                      margin: EdgeInsets.only(top: 10),
-                      child: Text(
-                        prelvalue.descr.toString(),
-                        // 'Florence',
-                        style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
-                        ),
-                      )),
-                  Column(
-                    children: [
-                      ListTile(
-                        title: Text(
-                          '${prelvalue.customername}',
-                          // 'BAJAJ M150 Motorbike',
-                          style: TextStyle(
-                            color: Color(0xFF034A8F),
-                            fontWeight: FontWeight.w700,
-                            fontSize: 17,
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                      child: Obx(() {
+                        if(salesController.activeStep.value == 0){
+                          return Text(
+                            '${prelvalue.customername}',
+                            style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
                             ),
-                            child: Container(
-                              height: 65,
-                              width: 155,
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Color(0xFF034A8F), width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                                // color: Color(0xFFF034A8F),
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    'Financed Amount',
-                                    style: TextStyle(
-                                      color: Color(0xFF000000),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    NumberFormat.decimalPattern()
-                                        .format(prelvalue.totalRe ?? 0),
-                                    style: TextStyle(
-                                      color: Color(0xFF034A8F),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 18,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
+                          );
+                        }else{
+                          return Text(
+                            'PAYMENT CONFIRMATION',
+                            style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
                             ),
-                          ),
-                          Card(
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              height: 60,
-                              width: 155,
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Color(0xFF034A8F), width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                                // color: Color(0xFFF034A8F),
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    'Current Balance',
-                                    style: TextStyle(
-                                      color: Color(0xFF000000),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    NumberFormat.decimalPattern()
-                                        .format(prelvalue.amountDu ?? 0),
-                                    style: TextStyle(
-                                      color: Color(0xFF6F8C2E),
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 18,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                          );
+                        }
+                        })
                   ),
-                  ListTile(
-                    title: Text('Channel'),
-                  ),
-                  Row(
-                      children: [
-                        Flexible(
-                            flex: 1,
-                            child: RadioListTile(
-                              title: Text('Cash'),
-                              activeColor: Color(0xFF034A8F),
-                              dense: true,
-                              groupValue: salesController.payMethodCtrl,
-                              value: 'Cash',
-                              onChanged: (value) {
-                                print(value);
-                                setState(() {
-                                  salesController.payMethodCtrl = value;
-                                });
-                              },
-                            )),
-                        Flexible(
-                            flex: 1,
-                            child: RadioListTile(
-                              title: Text('MoMo',maxLines: 1,overflow: TextOverflow.ellipsis,),
-                              activeColor: Color(0xFF034A8F),
-                              dense: true,
-                              groupValue: salesController.payMethodCtrl,
-                              value: 'MoMo',
-                              onChanged: (value) {
-                                print(value);
-                                setState(() {
-                                  salesController.payMethodCtrl = value;
-                                });
-                              },
-                            )),
-                        Flexible(
-                            flex: 1,
-                            child: RadioListTile(
-                              title: Text('OM'),
-                              activeColor: Color(0xFF034A8F),
-                              dense: true,
-                              groupValue: salesController.payMethodCtrl,
-                              value: 'OM',
-                              onChanged: (value) {
-                                print(value);
-                                setState(() {
-                                  salesController.payMethodCtrl = value;
-                                });
-                              },
-                            ))
-                      ]),
                   Column(
                     children: [
                       Container(
-                        height: 40,
-                        width: 300,
-                        alignment: Alignment.centerLeft,
-                        child: DropdownButtonFormField(
-                          itemHeight: kMinInteractiveDimension,
-                          isDense: false,
-                          decoration: InputDecoration(
-                            hintText: 'Repayment',
-                            hintStyle: TextStyle(),
-                            fillColor: Colors.white,
-                            contentPadding:
-                                EdgeInsets.only(left: 10, top: 6, bottom: 5),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xFF034A8F), width: 1),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xFF034A8F), width: 1),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            filled: true,
-                          ),
-                          validator: (value) =>
-                              value == null ? "Please select an option" : null,
-                          value: salesController.typePayCtrl,
-                          onChanged: (String? newValue) {
-                            print(newValue);
-                            setState(() {
-                              salesController.typePayCtrl = newValue!;
-                            });
-                          },
-                          items: <String>[
-                            'Repayment',
-                            'Initial Deposit',
-                            'Registration Fee'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        height: 40,
-                        width: 300,
-                        alignment: Alignment.centerLeft,
-                        child: TextFormField(
-                          controller: salesController.pVerseCtrl,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter Amount';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'Amount',
-                            contentPadding: EdgeInsets.only(left: 10, top: 11),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xFF034A8F), width: 1),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(0xFF034A8F), width: 1),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                            color: Color(0xFF034A8F),
-                            width: double.infinity,
-                            child: TextButton(
-                              onPressed: () async {
-                                if (salesController.payFormKey.currentState!
-                                    .validate()) {
-                                  await salesController.createPayment();
-                                  salesController.payFormKey.currentState!.save();
+                        padding: EdgeInsets.only(left: 20, right: 20),
+                        child: Expanded(
+                          child: Stack(
+                            alignment: Alignment.topCenter,
+                            children: [
+                              Obx(() {
+                                  return IndexedStack(
+                                    index: salesController.activeStep.value,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(height: 15 ),
+                                          Text(
+                                            prelvalue.descr.toString(),
+                                            style: TextStyle(
+                                              color: Color(0xFF034A8F),
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                          SizedBox(height: 15 ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Expanded(
+                                                child: Card(
+                                                  elevation: 5,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                  ),
+                                                  child: Container(
+                                                    height: 60,
+                                                    padding: EdgeInsets.only(left: 15),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(color: Color(0xFF034A8F), width: 1),
+                                                      borderRadius: BorderRadius.circular(10),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          'Financed Amount',
+                                                          style: TextStyle(
+                                                            color: Color(0xFF000000),
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 14,
+                                                          ),
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                        SizedBox(height: 5),
+                                                        Text(
+                                                          NumberFormat.decimalPattern()
+                                                              .format(prelvalue.totalRe ?? 0),
+                                                          style: TextStyle(
+                                                            color: Color(0xFF034A8F),
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 18,
+                                                          ),
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Card(
+                                                  elevation: 5,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                  ),
+                                                  child: Container(
+                                                    height: 60,
+                                                    padding: EdgeInsets.only(left: 15),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(color: Color(0xFF034A8F), width: 1),
+                                                      borderRadius: BorderRadius.circular(10),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          'Current Balance',
+                                                          style: TextStyle(
+                                                            color: Color(0xFF000000),
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 14,
+                                                          ),
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                        SizedBox(height: 5),
+                                                        Text(
+                                                          NumberFormat.decimalPattern()
+                                                              .format(prelvalue.amountDu ?? 0),
+                                                          style: TextStyle(
+                                                            color: Color(0xFF6F8C2E),
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 18,
+                                                          ),
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 15 ),
+                                          Text(
+                                            'Payment Method',
+                                            style: TextStyle(
+                                              color: Color(0xFF000000),
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16,
+                                            ),
+                                            textAlign: TextAlign.left,
+                                          ),
+                                          SizedBox(height: 15 ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Container(
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Radio(
+                                                        activeColor: Color(0xFF034A8F),
+                                                        groupValue: salesController.payMethodCtrl,
+                                                        value: 'Cash',
+                                                        onChanged: (value) {
+                                                          print(value);
+                                                          setState(() {
+                                                            salesController.payMethodCtrl = value;
+                                                          });
+                                                        },
+                                                      ),
+                                                      Image.asset(
+                                                        'assets/icon/money-illustration.png',
+                                                        height: 40,
+                                                        width: 40,
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Radio(
+                                                        activeColor: Color(0xFF034A8F),
+                                                        groupValue: salesController.payMethodCtrl,
+                                                        value: 'MTN Mobile Money',
+                                                        onChanged: (value) {
+                                                          print(value);
+                                                          setState(() {
+                                                            salesController.payMethodCtrl = value;
+                                                          });
+                                                        },
+                                                      ),
+                                                      Image.asset(
+                                                        'assets/icon/mtn-mobile-money.png',
+                                                        height: 40,
+                                                        width: 40,
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Radio(
+                                                        activeColor: Color(0xFF034A8F),
+                                                        groupValue: salesController.payMethodCtrl,
+                                                        value: 'Orange Mobile Money',
+                                                        onChanged: (value) {
+                                                          print(value);
+                                                          setState(() {
+                                                            salesController.payMethodCtrl = value;
+                                                          });
+                                                        },
+                                                      ),
+                                                      Image.asset(
+                                                        'assets/icon/orange-money.png',
+                                                        height: 40,
+                                                        width: 40,
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: 15 ),
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                width: Get.width*0.7,
+                                                child: DropdownButtonFormField(
+                                                  isExpanded:true,
+                                                  borderRadius: BorderRadius.circular(8),
+                                                  autovalidateMode:AutovalidateMode.onUserInteraction,
+                                                  focusColor:Colors.black,
+                                                  iconEnabledColor:Colors.black,
+                                                  style: const TextStyle(
+                                                      fontStyle: FontStyle.normal,
+                                                      color: Colors.grey,
+                                                      fontSize: 14
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    enabledBorder: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        borderSide: BorderSide(color:  Color(0xff034A8F) ),
+                                                        gapPadding: 10
+                                                    ),
+                                                    focusedBorder: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        borderSide: const BorderSide(color: Color(0xff034A8F)),
+                                                        gapPadding: 10
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        borderSide: const BorderSide(color: Color(0xff034A8F)),
+                                                        gapPadding: 10
+                                                    ),
+                                                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                                                    filled: true,
+                                                    fillColor: Colors.white,
+                                                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                                                  ),
+                                                  dropdownColor: Colors.white,
+                                                  hint: Text("Type"),
+                                                  icon: Container(
+                                                      height: 30,
+                                                      margin: EdgeInsets.only(right: 2),
+                                                      decoration: BoxDecoration(
+                                                          color: Color(0xff034A8F).withOpacity(0.1),
+                                                          borderRadius: BorderRadius.circular(20)
+                                                      ),
+                                                      child: Icon(Icons.keyboard_arrow_down_outlined,color: Color(0xff034A8F))
+                                                  ),
+                                                  isDense: true,
+                                                  validator: (value) => value == null ? "Please select an option" : null,
+                                                  value: salesController.typePayCtrl,
+                                                  onChanged: (String? newValue) {
+                                                    print(newValue);
+                                                    setState(() {
+                                                      salesController.typePayCtrl = newValue!;
+                                                    });
+                                                  },
+                                                  items: <String>[
+                                                    'Repayment',
+                                                    'Initial Deposit',
+                                                    'Registration Fee'
+                                                  ].map<DropdownMenuItem<String>>((String value) {
+                                                    return DropdownMenuItem<String>(
+                                                      value: value,
+                                                      child: Text(
+                                                        value,
+                                                        style: TextStyle(fontSize: 20),
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ),
+                                              SizedBox(height: 20),
+                                              Container(
+                                                width: Get.width*0.7,
+                                                child: TextFormField(
+                                                  controller: salesController.pVerseCtrl,
+                                                  keyboardType: TextInputType.number,
+                                                  inputFormatters: <TextInputFormatter>[
+                                                    FilteringTextInputFormatter.digitsOnly
+                                                  ],
+                                                  validator: (value) {
+                                                    if (value == null || value.isEmpty) {
+                                                      return 'Please enter Amount';
+                                                    }
+                                                    return null;
+                                                  },
+                                                  decoration: InputDecoration(
+                                                    hintText: 'Amount',
+                                                    contentPadding: EdgeInsets.only(left: 10, top: 11),
+                                                    enabledBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: Color(0xFF034A8F), width: 1),
+                                                      borderRadius: BorderRadius.circular(10),
+                                                    ),
+                                                    errorBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: Colors.red, width: 1),
+                                                      borderRadius: BorderRadius.circular(10),
+                                                    ),
+                                                    focusedBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: Color(0xFF034A8F), width: 1),
+                                                      borderRadius: BorderRadius.circular(10),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 20),
+                                        ],
+                                      ),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Theme(
+                                            data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                                            child: DataTable(
+                                                dividerThickness:0.0,
+                                                showBottomBorder: false,
+                                                columns: [
+                                                  // Set the name of the column
+                                                  DataColumn(label: Text(''),),
+                                                  DataColumn(label: Text(''),),
+                                                ],
+                                                rows:[
+                                                  // Set the values to the columns
+                                                  DataRow(cells: [
+                                                    DataCell(Text(
+                                                      "Product Name :",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: 14,
+                                                      ),
+                                                    )),
+                                                    DataCell(Text(
+                                                      prelvalue.descr??"",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),),
+                                                  ]),
+                                                  DataRow(cells: [
+                                                    DataCell(Text(
+                                                      "Customer Name :",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: 14,
+                                                      ),
+                                                    )),
+                                                    DataCell(Text(
+                                                      '${prelvalue.customername}',
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),),
+                                                  ]),
+                                                  DataRow(cells: [
+                                                    DataCell(Text(
+                                                      "Payment Type :",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: 14,
+                                                      ),
+                                                    )),
+                                                    DataCell(Text(
+                                                      salesController.typePayCtrl??"",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),),
+                                                  ]),
+                                                  DataRow(cells: [
+                                                    DataCell(Text(
+                                                      "Amount :",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: 14,
+                                                      ),
+                                                    )),
+                                                    DataCell(Text(
+                                                      salesController.pVerseCtrl.text,
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),),
+                                                  ]),
+                                                  DataRow(cells: [
+                                                    DataCell(Text(
+                                                      "Payment Method :",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: 14,
+                                                      ),
+                                                    )),
+                                                    DataCell(Text(
+                                                      salesController.payMethodCtrl??"",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),),
+                                                  ]),
+                                                  DataRow(cells: [
+                                                    DataCell(Text(
+                                                      "Payment Date :",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w700,
+                                                        fontSize: 14,
+                                                      ),
+                                                    )),
+                                                    DataCell(Text(
+                                                      df.format(new DateTime.now()),
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),),
+                                                  ]),
+                                                ]
+
+                                            ),
+                                          ),
+
+                                        ],
+                                      )
+                                    ],
+                                  );
                                 }
-                              },
-                              child: Text(
-                                'OK',
-                                style: TextStyle(
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            blurRadius: 4.0,
+                            spreadRadius: 0.0,
+                            offset: Offset(
+                              1.0,
+                              1.0,
+                            ),
+                          )
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(10),
+                                onTap: () async {
+                                  Get.back();
+                                },
+                                child: Container(
+                                  height: 50,
                                   color: Color(0xFFFFFFFF),
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Cancel',
+                                    style: TextStyle(
+                                      color: Color(0xFFF93A3A),
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            )),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Container(
-                          color: Color(0xFFFFFFFF),
-                          width: double.infinity,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                color: Color(0xFFF93A3A),
-                                fontWeight: FontWeight.w700,
-                                fontSize: 16,
-                              ),
                             ),
-                          ),
+                            Obx(() {
+                              if(salesController.activeStep.value == 0){
+                                return Expanded(
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(10),
+                                    onTap: () async {
+                                      if (salesController.payFormKey.currentState!.validate()) {
+                                        salesController.activeStep.value = 1;
+                                        salesController.payFormKey.currentState!.save();
+                                      }
+                                    },
+                                    child:  Container(
+                                      height: 50,
+                                      color: Color(0xFF034A8F),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Next',
+                                        style: TextStyle(
+                                          color: Color(0xFFFFFFFF),
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }else{
+                                return Expanded(
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(10),
+                                    onTap: () async {
+                                      await salesController.createPayment();
+                                    },
+                                    child:  Container(
+                                      height: 50,
+                                      color: Color(0xFF034A8F),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'Pay',
+                                        style: TextStyle(
+                                          color: Color(0xFFFFFFFF),
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+
+                            }),
+                          ],
                         ),
                       ),
                     ],
-                  ),
+                  )
                 ],
               ),
             ),
-          );
-        });
+          )
+      )
+    );
   }
 }
